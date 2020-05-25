@@ -6,6 +6,9 @@ import {
     TextInput,
     TouchableOpacity,
 } from "react-native";
+import { useSpring, animated } from "react-spring/native";
+
+const AnimatedView = animated(View);
 
 const Login = () => {
     // State for inputs
@@ -35,21 +38,27 @@ const Login = () => {
         }
     };
 
+    // Spring props
+    const value = useSpring({
+        config: { duration: 500 },
+        from: { opacity: "0" },
+        to: { opacity: "1" },
+    });
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Login</Text>
+        <AnimatedView style={{ ...value, ...styles.container }}>
             {submitError && username === "" ? (
                 <TextInput
                     style={styles.inputError}
                     placeholder='Username'
-                    placeholderTextColor='#787878'
+                    placeholderTextColor='#a68b8b'
                     onChangeText={(e) => setUsername(e)}
                 />
             ) : (
                 <TextInput
                     style={styles.input}
                     placeholder='Username'
-                    placeholderTextColor='#787878'
+                    placeholderTextColor='#a68b8b'
                     onChangeText={(e) => setUsername(e)}
                 />
             )}
@@ -57,7 +66,7 @@ const Login = () => {
                 <TextInput
                     style={styles.inputError}
                     placeholder='Password'
-                    placeholderTextColor='#787878'
+                    placeholderTextColor='#a68b8b'
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)}
                 />
@@ -65,7 +74,7 @@ const Login = () => {
                 <TextInput
                     style={styles.input}
                     placeholder='Password'
-                    placeholderTextColor='#787878'
+                    placeholderTextColor='#a68b8b'
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)}
                 />
@@ -76,7 +85,7 @@ const Login = () => {
             >
                 <Text style={styles.buttonText}>CONTINUE</Text>
             </TouchableOpacity>
-        </View>
+        </AnimatedView>
     );
 };
 
@@ -84,6 +93,7 @@ export default Login;
 
 const styles = StyleSheet.create({
     container: {
+        height: 285,
         width: "80%",
         display: "flex",
         flexDirection: "column",
@@ -98,14 +108,12 @@ const styles = StyleSheet.create({
         height: 70,
         width: "100%",
         borderRadius: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: "#ff8000",
-        backgroundColor: "#212121",
+        backgroundColor: "#3e3636",
         marginVertical: 10,
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#787878",
+        color: "#a68b8b",
     },
     inputError: {
         height: 70,
@@ -113,12 +121,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "red",
-        backgroundColor: "#212121",
+        backgroundColor: "#3e3636",
         marginVertical: 10,
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#787878",
+        color: "#a68b8b",
     },
     button: {
         height: 70,
@@ -129,13 +137,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         color: "white",
-        backgroundColor: "#ff8000",
+        backgroundColor: "#d72323",
         marginTop: 10,
     },
     buttonText: {
         fontFamily: "MontserratMedium",
         fontSize: 20,
         fontWeight: "bold",
-        color: "white",
+        color: "#f5eded",
     },
 });
