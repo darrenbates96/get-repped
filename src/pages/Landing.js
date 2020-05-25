@@ -17,6 +17,7 @@ const Landing = () => {
     const loadFont = async () => {
         await Font.loadAsync({
             Montserrat: require("../../assets/fonts/Montserrat-Regular.ttf"),
+            MontserratMedium: require("../../assets/fonts/Montserrat-Medium.ttf"),
         });
         setFontLoading(false);
     };
@@ -45,7 +46,11 @@ const Landing = () => {
             formTimeOut();
             return (
                 <View style={styles.view_container}>
-                    <Text style={styles.header}>GetRepped.</Text>
+                    {showForm ? (
+                        <Text style={styles.headerBigger}>GetRepped.</Text>
+                    ) : (
+                        <Text style={styles.header}>GetRepped.</Text>
+                    )}
                     {!showForm ? (
                         <ActivityIndicator
                             size='large'
@@ -90,6 +95,12 @@ const styles = StyleSheet.create({
     header: {
         fontFamily: "Montserrat",
         fontSize: 30,
+        color: "white",
+        marginBottom: 0,
+    },
+    headerBigger: {
+        fontFamily: "Montserrat",
+        fontSize: 50,
         color: "white",
         marginBottom: 0,
     },
