@@ -8,7 +8,8 @@ import {
 } from "react-native";
 import { useSpring, animated } from "react-spring/native";
 
-const AnimatedView = animated(View);
+const AnimatedUserInput = animated(TextInput);
+const AnimatedPasswordInput = animated(TextInput);
 
 const Login = () => {
     // State for inputs
@@ -39,26 +40,31 @@ const Login = () => {
     };
 
     // Spring props
-    const value = useSpring({
-        config: { duration: 500 },
-        from: { opacity: "0" },
-        to: { opacity: "1" },
+    const springUsername = useSpring({
+        config: { duration: 600 },
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+    });
+    const springPassword = useSpring({
+        config: { duration: 1100 },
+        from: { opacity: 0 },
+        to: { opacity: 1 },
     });
 
     return (
-        <AnimatedView style={{ ...value, ...styles.container }}>
+        <View style={styles.container}>
             {submitError && username === "" ? (
                 <TextInput
                     style={styles.inputError}
                     placeholder='Username'
-                    placeholderTextColor='#a68b8b'
+                    placeholderTextColor='#ffa45c'
                     onChangeText={(e) => setUsername(e)}
                 />
             ) : (
-                <TextInput
-                    style={styles.input}
+                <AnimatedUserInput
+                    style={{ ...springUsername, ...styles.input }}
                     placeholder='Username'
-                    placeholderTextColor='#a68b8b'
+                    placeholderTextColor='#ffa45c'
                     onChangeText={(e) => setUsername(e)}
                 />
             )}
@@ -66,26 +72,27 @@ const Login = () => {
                 <TextInput
                     style={styles.inputError}
                     placeholder='Password'
-                    placeholderTextColor='#a68b8b'
+                    placeholderTextColor='#ffa45c'
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)}
                 />
             ) : (
-                <TextInput
-                    style={styles.input}
+                <AnimatedPasswordInput
+                    style={{ ...springPassword, ...styles.input }}
                     placeholder='Password'
-                    placeholderTextColor='#a68b8b'
+                    placeholderTextColor='#ffa45c'
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)}
                 />
             )}
+            {/* MAKE BUTTOn SEPARATE COMPONENT FOR SPRING TO WORK */}
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => submitHelper()}
             >
                 <Text style={styles.buttonText}>CONTINUE</Text>
             </TouchableOpacity>
-        </AnimatedView>
+        </View>
     );
 };
 
@@ -108,12 +115,14 @@ const styles = StyleSheet.create({
         height: 70,
         width: "100%",
         borderRadius: 10,
-        backgroundColor: "#3e3636",
+        borderBottomWidth: 1,
+        borderBottomColor: "#ffa45c",
+        backgroundColor: "#fce5c2",
         marginVertical: 10,
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#a68b8b",
+        color: "#f5bfa4",
     },
     inputError: {
         height: 70,
@@ -121,12 +130,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: "red",
-        backgroundColor: "#3e3636",
+        backgroundColor: "#fce5c2",
         marginVertical: 10,
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#a68b8b",
+        color: "#f5bfa4",
     },
     button: {
         height: 70,
@@ -137,7 +146,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderRadius: 10,
         color: "white",
-        backgroundColor: "#d72323",
+        backgroundColor: "#2d4059",
         marginTop: 10,
     },
     buttonText: {

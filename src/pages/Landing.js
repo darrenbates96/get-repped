@@ -52,7 +52,7 @@ const Landing = () => {
     // Render Helper... To extract logic from return statement
     const renderHelper = () => {
         if (fontLoading) {
-            return <ActivityIndicator size='large' />;
+            return <View style={styles.view_container} />;
         } else {
             formTimeOut();
             return (
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#000000",
+        backgroundColor: "#fff4e3",
     },
     view_container: {
         display: "flex",
@@ -92,12 +92,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#000000",
+        backgroundColor: "#fff4e3",
     },
     header: {
-        fontFamily: "Montserrat",
+        fontFamily: "MontserratMedium",
         fontSize: 48,
-        color: "#f5eded",
-        marginBottom: 0,
+        color: "#2d4059",
+        marginBottom: 10,
     },
 });
