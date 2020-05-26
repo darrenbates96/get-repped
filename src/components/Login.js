@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import {
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    TouchableOpacity,
-} from "react-native";
+import { StyleSheet, View, TextInput } from "react-native";
 import { useSpring, animated } from "react-spring/native";
+import PrimaryButton from "./PrimaryButton";
 
 const AnimatedUserInput = animated(TextInput);
 const AnimatedPasswordInput = animated(TextInput);
@@ -15,50 +10,52 @@ const Login = () => {
     // State for inputs
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [submitError, setSubmitError] = useState(false);
-
-    // Make sure error goes away if both fields are filled
-    if (submitError && username !== "" && password !== "") {
-        setSubmitError(false);
-    }
+    const [userError, setUserError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
 
     // Submit Helper
     const submitHelper = () => {
-        if (
-            username === "" ||
-            password === "" ||
-            (username === "" && password === "")
-        ) {
-            setSubmitError(true);
-        } else {
+        if (username && password) {
             if (username === "Darren" && password === "420") {
                 console.log("Nice");
             } else {
                 console.log("Incorrect Credentials");
+            }
+        } else {
+            if (username === "" && password === "") {
+                setUserError(true);
+                setPasswordError(true);
+            } else if (username === "" && password !== "") {
+                setUserError(true);
+            } else if (password === "" && username !== "") {
+                setPasswordError(true);
             }
         }
     };
 
     // Spring props
     const springUsername = useSpring({
-        config: { duration: 600 },
-        from: { opacity: 0 },
-        to: { opacity: 1 },
+        config: { duration: 200 },
+        from: { opacity: 0, height: 0 },
+        to: { opacity: 1, height: 70 },
     });
     const springPassword = useSpring({
-        config: { duration: 1100 },
-        from: { opacity: 0 },
-        to: { opacity: 1 },
+        config: { duration: 400 },
+        from: { opacity: 0, height: 0 },
+        to: { opacity: 1, height: 70 },
     });
 
     return (
         <View style={styles.container}>
-            {submitError && username === "" ? (
+            {userError ? (
                 <TextInput
                     style={styles.inputError}
                     placeholder='Username'
                     placeholderTextColor='#ffa45c'
-                    onChangeText={(e) => setUsername(e)}
+                    onFocus={() => setUserError(false)}
+                    onChangeText={(e) => {
+                        setUsername(e);
+                    }}
                 />
             ) : (
                 <AnimatedUserInput
@@ -68,13 +65,16 @@ const Login = () => {
                     onChangeText={(e) => setUsername(e)}
                 />
             )}
-            {submitError && password === "" ? (
+            {passwordError ? (
                 <TextInput
                     style={styles.inputError}
                     placeholder='Password'
                     placeholderTextColor='#ffa45c'
                     secureTextEntry={true}
-                    onChangeText={(e) => setPassword(e)}
+                    onFocus={() => setPasswordError(false)}
+                    onChangeText={(e) => {
+                        setPassword(e);
+                    }}
                 />
             ) : (
                 <AnimatedPasswordInput
@@ -85,13 +85,7 @@ const Login = () => {
                     onChangeText={(e) => setPassword(e)}
                 />
             )}
-            {/* MAKE BUTTOn SEPARATE COMPONENT FOR SPRING TO WORK */}
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => submitHelper()}
-            >
-                <Text style={styles.buttonText}>CONTINUE</Text>
-            </TouchableOpacity>
+            <PrimaryButton onTap={submitHelper} />
         </View>
     );
 };
@@ -112,7 +106,6 @@ const styles = StyleSheet.create({
         color: "black",
     },
     input: {
-        height: 70,
         width: "100%",
         borderRadius: 10,
         borderBottomWidth: 1,
@@ -122,7 +115,7 @@ const styles = StyleSheet.create({
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#f5bfa4",
+        color: "#ffa45c",
     },
     inputError: {
         height: 70,
@@ -135,24 +128,6 @@ const styles = StyleSheet.create({
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#f5bfa4",
-    },
-    button: {
-        height: 70,
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: 10,
-        color: "white",
-        backgroundColor: "#2d4059",
-        marginTop: 10,
-    },
-    buttonText: {
-        fontFamily: "MontserratMedium",
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "#f5eded",
+        color: "#ffa45c",
     },
 });

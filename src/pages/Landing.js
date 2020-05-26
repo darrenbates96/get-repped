@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-    StyleSheet,
-    Text,
-    SafeAreaView,
-    View,
-    ActivityIndicator,
-} from "react-native";
+import React, { useState, useEffect, Fragment } from "react";
+import { StyleSheet, Text, SafeAreaView, View } from "react-native";
 import * as Font from "expo-font";
-import { useSpring, animated } from "react-spring/native";
+import { FontAwesome5 } from "@expo/vector-icons";
 import Login from "../components/Login";
-
-const AnimatedText = animated(Text);
 
 const Landing = () => {
     // State for loading fonts and showing the
@@ -33,21 +25,10 @@ const Landing = () => {
 
     // A timeout before showing the form
     const formTimeOut = () => {
-        // In reality this should actually:
-        // 1. Check user phone for credentials
-        // 2. Attempt to sign in with those credentials
-        // 3. Or if there is no credentials show the form
         setTimeout(() => {
             setShowForm(true);
         }, 2000);
     };
-
-    // Spring props
-    const springProps = useSpring({
-        config: { duration: 1500 },
-        from: { letterSpacing: 0, opacity: 0 },
-        to: { letterSpacing: 3, opacity: 1 },
-    });
 
     // Render Helper... To extract logic from return statement
     const renderHelper = () => {
@@ -55,14 +36,20 @@ const Landing = () => {
             return <View style={styles.view_container} />;
         } else {
             formTimeOut();
-            return (
-                <View style={styles.view_container}>
-                    <AnimatedText style={{ ...springProps, ...styles.header }}>
-                        GetRepped.
-                    </AnimatedText>
-                    {showForm ? <Login /> : null}
-                </View>
-            );
+            if (!showForm) {
+                return (
+                    <View style={styles.view_container}>
+                        <FontAwesome5 name='weight' size={70} color='#2d4059' />
+                    </View>
+                );
+            } else {
+                return (
+                    <View style={styles.view_container}>
+                        <Text style={styles.header}>GetRepped.</Text>
+                        {showForm ? <Login /> : null}
+                    </View>
+                );
+            }
         }
     };
 
