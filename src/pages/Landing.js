@@ -16,27 +16,18 @@ const Landing = () => {
     // State for loading fonts and showing the
     // Log In form
     const [fontLoading, setFontLoading] = useState(true);
-    const [textEnlarge, setTextEnlarge] = useState(false);
     const [showForm, setShowForm] = useState(null);
-
-    // Spring props
-    const value = useSpring({
-        config: { duration: 5000 },
-        from: { fontSize: 30 },
-        to: { fontSize: 50 },
-    });
-
-    // Function to load the custom Font
-    const loadFont = async () => {
-        await Font.loadAsync({
-            Montserrat: require("../../assets/fonts/Montserrat-Regular.ttf"),
-            MontserratMedium: require("../../assets/fonts/Montserrat-Medium.ttf"),
-        });
-        setFontLoading(false);
-    };
 
     // ComponentDidMount
     useEffect(() => {
+        // Function to load the custom Font
+        const loadFont = async () => {
+            await Font.loadAsync({
+                Montserrat: require("../../assets/fonts/Montserrat-Regular.ttf"),
+                MontserratMedium: require("../../assets/fonts/Montserrat-Medium.ttf"),
+            });
+            setFontLoading(false);
+        };
         loadFont();
     }, []);
 
@@ -47,12 +38,16 @@ const Landing = () => {
         // 2. Attempt to sign in with those credentials
         // 3. Or if there is no credentials show the form
         setTimeout(() => {
-            setTextEnlarge(true);
-        }, 1000);
-        setTimeout(() => {
             setShowForm(true);
-        }, 6000);
+        }, 2000);
     };
+
+    // Spring props
+    const springProps = useSpring({
+        config: { duration: 1500 },
+        from: { letterSpacing: 0, opacity: 0 },
+        to: { letterSpacing: 3, opacity: 1 },
+    });
 
     // Render Helper... To extract logic from return statement
     const renderHelper = () => {
@@ -62,23 +57,10 @@ const Landing = () => {
             formTimeOut();
             return (
                 <View style={styles.view_container}>
-                    {textEnlarge ? (
-                        <AnimatedText
-                            style={{ ...value, ...styles.headerBigger }}
-                        >
-                            GetRepped.
-                        </AnimatedText>
-                    ) : (
-                        <Text style={styles.header}>GetRepped.</Text>
-                    )}
-                    {!showForm ? (
-                        <ActivityIndicator
-                            size='large'
-                            style={{ marginTop: 15 }}
-                        />
-                    ) : (
-                        <Login />
-                    )}
+                    <AnimatedText style={{ ...springProps, ...styles.header }}>
+                        GetRepped.
+                    </AnimatedText>
+                    {showForm ? <Login /> : null}
                 </View>
             );
         }
@@ -114,13 +96,8 @@ const styles = StyleSheet.create({
     },
     header: {
         fontFamily: "Montserrat",
-        fontSize: 30,
+        fontSize: 48,
         color: "#f5eded",
         marginBottom: 0,
-    },
-    headerBigger: {
-        fontFamily: "Montserrat",
-        color: "#f5eded",
-        marginBottom: 10,
     },
 });
