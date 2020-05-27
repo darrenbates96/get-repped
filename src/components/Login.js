@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 import { useSpring, animated } from "react-spring/native";
+import { withNavigation } from "react-navigation";
 import PrimaryButton from "./PrimaryButton";
 
 const AnimatedUserInput = animated(TextInput);
@@ -14,10 +15,10 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState(false);
 
     // Submit Helper
-    const submitHelper = () => {
+    const submitHelper = ({ navigation }) => {
         if (username && password) {
             if (username === "Darren" && password === "420") {
-                console.log("Nice");
+                navigation.navigate("Main");
             } else {
                 console.log("Incorrect Credentials");
             }
@@ -90,7 +91,7 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default withNavigation(Login);
 
 const styles = StyleSheet.create({
     container: {

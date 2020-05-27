@@ -1,13 +1,12 @@
 import React from "react";
-import { View } from "react-native";
+import { createAppContainer } from "react-navigation";
+import { createSwitchNavigator } from "react-navigation";
 import Landing from "./src/pages/Landing";
+import Dashboard from "./src/pages/Dashboard";
 
-const App = () => {
-    return (
-        <View>
-            <Landing />
-        </View>
-    );
-};
+const navigator = createSwitchNavigator({
+    Authenticate: Landing,
+    Main: Dashboard,
+});
 
-export default App;
+export default createAppContainer(navigator);

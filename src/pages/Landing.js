@@ -1,7 +1,12 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { StyleSheet, Text, SafeAreaView, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+    StyleSheet,
+    Text,
+    SafeAreaView,
+    View,
+    ActivityIndicator,
+} from "react-native";
 import * as Font from "expo-font";
-import { FontAwesome5 } from "@expo/vector-icons";
 import Login from "../components/Login";
 
 const Landing = () => {
@@ -27,7 +32,7 @@ const Landing = () => {
     const formTimeOut = () => {
         setTimeout(() => {
             setShowForm(true);
-        }, 2000);
+        }, 3000);
     };
 
     // Render Helper... To extract logic from return statement
@@ -39,7 +44,8 @@ const Landing = () => {
             if (!showForm) {
                 return (
                     <View style={styles.view_container}>
-                        <FontAwesome5 name='weight' size={70} color='#2d4059' />
+                        <Text style={styles.header}>GetRepped.</Text>
+                        <ActivityIndicator size='large' color='#2d4059' />
                     </View>
                 );
             } else {
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
     header: {
         fontFamily: "MontserratMedium",
         fontSize: 48,
+        letterSpacing: 2,
         color: "#2d4059",
         marginBottom: 10,
     },
