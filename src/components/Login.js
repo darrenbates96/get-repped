@@ -52,7 +52,7 @@ const Login = () => {
                 <TextInput
                     style={styles.inputError}
                     placeholder='Username'
-                    placeholderTextColor='#ffa45c'
+                    placeholderTextColor='#bdbdbd'
                     onFocus={() => setUserError(false)}
                     onChangeText={(e) => {
                         setUsername(e);
@@ -62,7 +62,7 @@ const Login = () => {
                 <AnimatedUserInput
                     style={{ ...springUsername, ...styles.input }}
                     placeholder='Username'
-                    placeholderTextColor='#ffa45c'
+                    placeholderTextColor='#bdbdbd'
                     onChangeText={(e) => setUsername(e)}
                 />
             )}
@@ -70,7 +70,7 @@ const Login = () => {
                 <TextInput
                     style={styles.inputError}
                     placeholder='Password'
-                    placeholderTextColor='#ffa45c'
+                    placeholderTextColor='#bdbdbd'
                     secureTextEntry={true}
                     onFocus={() => setPasswordError(false)}
                     onChangeText={(e) => {
@@ -81,7 +81,7 @@ const Login = () => {
                 <AnimatedPasswordInput
                     style={{ ...springPassword, ...styles.input }}
                     placeholder='Password'
-                    placeholderTextColor='#ffa45c'
+                    placeholderTextColor='#bdbdbd'
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)}
                 />
@@ -109,26 +109,32 @@ const styles = StyleSheet.create({
     input: {
         width: "100%",
         borderRadius: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: "#ffa45c",
-        backgroundColor: "#fce5c2",
+        backgroundColor: "white",
         marginVertical: 10,
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#ffa45c",
+        color: "#bdbdbd",
+        shadowColor: "black",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
     },
     inputError: {
         height: 70,
         width: "100%",
         borderRadius: 10,
         borderWidth: 1,
-        borderColor: "red",
-        backgroundColor: "#fce5c2",
+        borderColor: "#ff7373",
+        backgroundColor: "white",
         marginVertical: 10,
         fontFamily: "Montserrat",
         fontSize: 16,
         paddingLeft: 15,
-        color: "#ffa45c",
+        color: "#bdbdbd",
+        shadowColor: "black",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
     },
 });

@@ -52,6 +52,7 @@ const Landing = () => {
                 return (
                     <View style={styles.view_container}>
                         <Text style={styles.header}>GetRepped.</Text>
+                        <View style={styles.header_underline} />
                         {showForm ? <Login /> : null}
                     </View>
                 );
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#fff4e3",
+        backgroundColor: "#f2f2f2",
     },
     view_container: {
         display: "flex",
@@ -85,13 +86,21 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#fff4e3",
+        backgroundColor: "#f2f2f2",
     },
     header: {
         fontFamily: "MontserratMedium",
         fontSize: 48,
         letterSpacing: 2,
-        color: "#2d4059",
+        color: "#4a4a4a",
         marginBottom: 10,
+    },
+    header_underline: {
+        width: 45,
+        borderBottomWidth: 5,
+        borderBottomColor: "#f8a978",
+        marginBottom: 10,
+        marginLeft: 42,
+        alignSelf: "flex-start",
     },
 });

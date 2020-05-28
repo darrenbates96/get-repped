@@ -26,8 +26,12 @@ const styles = StyleSheet.create({
     button: {
         width: "100%",
         borderRadius: 10,
-        backgroundColor: "#2d4059",
+        backgroundColor: "#f8a978",
         marginTop: 10,
+        shadowColor: "black",
+        shadowOffset: { width: 6, height: 6 },
+        shadowOpacity: 0.4,
+        shadowRadius: 8,
     },
     touchable: {
         height: "100%",
@@ -36,12 +40,11 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        color: "white",
     },
     buttonText: {
         fontFamily: "MontserratMedium",
         fontSize: 20,
         fontWeight: "bold",
-        color: "#f5eded",
+        color: "white",
     },
 });
