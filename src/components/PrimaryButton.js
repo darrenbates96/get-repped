@@ -7,9 +7,9 @@ const AnimatedButton = animated(View);
 const PrimaryButton = ({ onTap }) => {
     // Spring props
     const springButton = useSpring({
-        config: { duration: 600 },
-        from: { opacity: 0, height: 0 },
-        to: { opacity: 1, height: 70 },
+        config: { duration: 350 },
+        from: { opacity: 0, height: 60, width: "90%" },
+        to: { opacity: 1, height: 70, width: "90%" },
     });
     return (
         <AnimatedButton style={{ ...springButton, ...styles.button }}>

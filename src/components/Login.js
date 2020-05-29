@@ -11,8 +11,18 @@ const Login = ({ navigation }) => {
     // State for inputs
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [userError, setUserError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false);
+
+    // Spring props
+    const springUsername = useSpring({
+        config: { duration: 200 },
+        from: { opacity: 0, height: 20, width: "70%" },
+        to: { opacity: 1, height: 70, width: "100%" },
+    });
+    const springPassword = useSpring({
+        config: { duration: 300 },
+        from: { opacity: 0, height: 50, width: "85%" },
+        to: { opacity: 1, height: 70, width: "100%" },
+    });
 
     // Submit Helper
     const submitHelper = () => {
@@ -34,58 +44,36 @@ const Login = ({ navigation }) => {
         }
     };
 
-    // Spring props
-    const springUsername = useSpring({
-        config: { duration: 200 },
-        from: { opacity: 0, height: 0 },
-        to: { opacity: 1, height: 70 },
-    });
-    const springPassword = useSpring({
-        config: { duration: 400 },
-        from: { opacity: 0, height: 0 },
-        to: { opacity: 1, height: 70 },
-    });
-
-    return (
-        <View style={styles.container}>
-            {userError ? (
-                <TextInput
-                    style={styles.inputError}
-                    placeholder='Username'
-                    placeholderTextColor='#bdbdbd'
-                    onFocus={() => setUserError(false)}
-                    onChangeText={(e) => {
-                        setUsername(e);
-                    }}
-                />
-            ) : (
+    // Input rendering helper
+    const inputRender = (name) => {
+        if (name === "user") {
+            return (
                 <AnimatedUserInput
                     style={{ ...springUsername, ...styles.input }}
+                    value={username}
                     placeholder='Username'
                     placeholderTextColor='#bdbdbd'
                     onChangeText={(e) => setUsername(e)}
                 />
-            )}
-            {passwordError ? (
-                <TextInput
-                    style={styles.inputError}
-                    placeholder='Password'
-                    placeholderTextColor='#bdbdbd'
-                    secureTextEntry={true}
-                    onFocus={() => setPasswordError(false)}
-                    onChangeText={(e) => {
-                        setPassword(e);
-                    }}
-                />
-            ) : (
+            );
+        } else if (name === "pass") {
+            return (
                 <AnimatedPasswordInput
                     style={{ ...springPassword, ...styles.input }}
+                    value={password}
                     placeholder='Password'
                     placeholderTextColor='#bdbdbd'
                     secureTextEntry={true}
                     onChangeText={(e) => setPassword(e)}
                 />
-            )}
+            );
+        }
+    };
+
+    return (
+        <View style={styles.container}>
+            {inputRender("user")}
+            {inputRender("pass")}
             <PrimaryButton onTap={submitHelper} />
         </View>
     );
@@ -101,31 +89,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
     },
-    header: {
-        fontFamily: "Montserrat",
-        fontSize: 20,
-        color: "black",
-    },
     input: {
-        width: "100%",
         borderRadius: 10,
-        backgroundColor: "white",
-        marginVertical: 10,
-        fontFamily: "Montserrat",
-        fontSize: 16,
-        paddingLeft: 15,
-        color: "#bdbdbd",
-        shadowColor: "black",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-    },
-    inputError: {
-        height: 70,
-        width: "100%",
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: "#ff7373",
         backgroundColor: "white",
         marginVertical: 10,
         fontFamily: "Montserrat",
