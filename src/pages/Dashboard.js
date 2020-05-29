@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, SafeAreaView } from "react-native";
 
 const Dashboard = () => {
     return (
-        <View>
+        <SafeAreaView forceInset={true}>
             <Text>Dash</Text>
-        </View>
+        </SafeAreaView>
     );
 };
 

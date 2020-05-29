@@ -7,7 +7,7 @@ import PrimaryButton from "./PrimaryButton";
 const AnimatedUserInput = animated(TextInput);
 const AnimatedPasswordInput = animated(TextInput);
 
-const Login = () => {
+const Login = ({ navigation }) => {
     // State for inputs
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -15,7 +15,7 @@ const Login = () => {
     const [passwordError, setPasswordError] = useState(false);
 
     // Submit Helper
-    const submitHelper = ({ navigation }) => {
+    const submitHelper = () => {
         if (username && password) {
             if (username === "Darren" && password === "420") {
                 navigation.navigate("Main");
