@@ -70,9 +70,8 @@ const Welcome = ({ navigation }) => {
                     <View style={styles.header_underline} />
                     <View style={styles.description_container}>
                         <Text style={styles.description_text}>
-                            Here at Taste, we want to bring the wonders of
-                            wine-tasting right to your doorstep. All neatly
-                            packaged.
+                            With Taste, you can bask in the joys of wine tasting
+                            in your very own home.
                         </Text>
                     </View>
                     <TouchableOpacity

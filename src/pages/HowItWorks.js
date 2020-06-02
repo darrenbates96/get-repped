@@ -47,9 +47,9 @@ const HowItWorks = ({ navigation }) => {
                 <View style={styles.header_underline} />
                 <View style={styles.description_container}>
                     <Text style={styles.description_text}>
-                        All you gotta do is tell us where you're at, and if you
-                        want white, red, or little bit of both. We'll take care
-                        of the rest.{"\n"}PS: How about some cheese?
+                        Pick a tasting, tell us how many of you there are, and
+                        we'll be on our way to yuo soonest!{"\n"}PS: How about
+                        some cheese?
                     </Text>
                 </View>
                 <TouchableOpacity
