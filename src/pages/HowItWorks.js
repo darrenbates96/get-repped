@@ -21,11 +21,11 @@ const HowItWorks = ({ navigation }) => {
 
     // Spring props
     const s_from = springToggle
-        ? { marginLeft: 250, opacity: 0 }
-        : { marginLeft: 0, opacity: 1 };
+        ? { height: "20%", opacity: 0 }
+        : { height: "40%", opacity: 1 };
     const s_to = springToggle
-        ? { marginLeft: 0, opacity: 1 }
-        : { marginLeft: -250, opacity: 0 };
+        ? { height: "40%", opacity: 1 }
+        : { height: "20%", opacity: 0 };
     const springTextContainer = useSpring({
         config: config.default,
         from: s_from,
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
         backgroundColor: "transparent",
     },
     text_container: {
-        height: "40%",
         width: "80%",
         display: "flex",
         flexDirection: "column",
