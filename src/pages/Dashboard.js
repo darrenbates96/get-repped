@@ -5,6 +5,11 @@ const Dashboard = () => {
     return (
         <SafeAreaView forceInset={true}>
             <Text>Dash</Text>
+            <Text>
+                You Chose:{"\n"}Wine:
+                {"\n"}Pax:
+                {"\n"}Cheese:
+            </Text>
         </SafeAreaView>
     );
 };

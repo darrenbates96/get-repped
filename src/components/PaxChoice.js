@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Slider } from "react-native";
+import { StyleSheet, Text, View, Slider, TouchableOpacity } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 
 const AnimatedView = animated(View);
 
-const PaxChoice = () => {
+const PaxChoice = ({ showingSetter, paxSetter }) => {
     const [pax, setPax] = useState(4);
     const [animateIn, setAnimateIn] = useState(true);
     const s_from = animateIn
@@ -37,6 +37,18 @@ const PaxChoice = () => {
                 <Text style={styles.label_text}>2</Text>
                 <Text style={styles.label_text}>6</Text>
             </View>
+            <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                    paxSetter(pax);
+                    setAnimateIn(false);
+                    setTimeout(() => {
+                        showingSetter();
+                    }, 300);
+                }}
+            >
+                <Text style={styles.button_text}>We're a pack of {pax}</Text>
+            </TouchableOpacity>
         </AnimatedView>
     );
 };
@@ -70,5 +82,21 @@ const styles = StyleSheet.create({
     label_text: {
         fontFamily: "Montserrat",
         fontSize: 17,
+    },
+    button: {
+        height: 90,
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 35,
+        borderWidth: 1,
+        borderColor: "black",
+        borderRadius: 15,
+    },
+    button_text: {
+        fontFamily: "MontserratMedium",
+        fontSize: 20,
     },
 });

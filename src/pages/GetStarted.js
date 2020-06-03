@@ -4,11 +4,15 @@ import WineChoice from "../components/WineChoice";
 import PaxChoice from "../components/PaxChoice";
 import CheeseChoice from "../components/CheeseChoice";
 
-const GetStarted = () => {
+const GetStarted = ({ navigation }) => {
     const [showing, setShowing] = useState("wine");
     const [wine, setWine] = useState("");
     const [pax, setPax] = useState("");
     const [cheese, setCheese] = useState(false);
+
+    const navToDash = () => {
+        navigation.navigate("Main", { Wine: wine, Pax: pax, Cheese: cheese });
+    };
 
     const choiceRender = () => {
         if (showing === "wine") {
@@ -26,7 +30,12 @@ const GetStarted = () => {
                 />
             );
         } else {
-            return <CheeseChoice cheesSetter={(c) => setCheese(c)} />;
+            return (
+                <CheeseChoice
+                    cheeseSetter={(c) => setCheese(c)}
+                    navHelper={() => navToDash()}
+                />
+            );
         }
     };
 

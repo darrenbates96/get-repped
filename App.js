@@ -5,6 +5,7 @@ import Welcome from "./src/pages/Welcome";
 import HowItWorks from "./src/pages/HowItWorks";
 import GetStarted from "./src/pages/GetStarted";
 import Dashboard from "./src/pages/Dashboard";
+import ChoiceState from "./src/context/choice/ChoiceState";
 
 const navigator = createSwitchNavigator({
     Onboarding: createSwitchNavigator({
@@ -15,4 +16,12 @@ const navigator = createSwitchNavigator({
     Main: Dashboard,
 });
 
-export default createAppContainer(navigator);
+const App = createAppContainer(navigator);
+
+export default () => {
+    return (
+        <ChoiceState>
+            <App />
+        </ChoiceState>
+    );
+};

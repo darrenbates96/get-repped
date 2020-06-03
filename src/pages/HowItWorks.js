@@ -73,6 +73,7 @@ export default HowItWorks;
 const styles = StyleSheet.create({
     container: {
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        paddingBottom: Platform.OS === "android" ? 25 : 0,
         width: "100%",
         height: "100%",
         display: "flex",

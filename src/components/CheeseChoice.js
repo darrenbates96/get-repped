@@ -1,21 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { useSpring, animated, config } from "react-spring/native";
 
-const CheeseChoice = () => {
+const AnimatedView = animated(View);
+
+const CheeseChoice = ({ cheeseSetter, navHelper }) => {
+    const [animateIn, setAnimateIn] = useState(true);
+    const s_from = animateIn
+        ? { marginLeft: 250, opacity: 0 }
+        : { marginLeft: 0, opacity: 1 };
+    const s_to = animateIn
+        ? { marginLeft: 0, opacity: 1 }
+        : { marginLeft: -250, opacity: 0 };
+    const springView = useSpring({
+        config: config.default,
+        from: s_from,
+        to: s_to,
+    });
     return (
-        <View style={styles.choice_container}>
+        <AnimatedView style={{ ...springView, ...styles.choice_container }}>
             <Text style={styles.choice_text}>
                 Want to pair those wines with some cheese?
             </Text>
             <View style={styles.cheese_toggle_container}>
-                <TouchableOpacity style={styles.cheese_choice}>
+                <TouchableOpacity
+                    style={styles.cheese_choice}
+                    onPress={() => {
+                        cheeseSetter(true);
+                        setAnimateIn(false);
+                        setTimeout(() => {
+                            navHelper();
+                        }, 300);
+                    }}
+                >
                     <Text style={styles.cheese_choice_text}>Heck yeah!</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cheese_choice}>
+                <TouchableOpacity
+                    style={styles.cheese_choice}
+                    onPress={() => {
+                        cheeseSetter(false);
+                        setAnimateIn(false);
+                        setTimeout(() => {
+                            navHelper();
+                        }, 300);
+                    }}
+                >
                     <Text style={styles.cheese_choice_text}>No Thanks...</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </AnimatedView>
     );
 };
 
@@ -38,9 +71,11 @@ const styles = StyleSheet.create({
         height: 100,
         display: "flex",
         flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     cheese_choice: {
-        width: "50%",
+        width: "48%",
         height: "100%",
         display: "flex",
         flexDirection: "column",
