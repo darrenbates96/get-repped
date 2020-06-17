@@ -26,7 +26,7 @@ const CheeseChoice = ({ cheeseSetter, navHelper }) => {
                 <TouchableOpacity
                     style={styles.cheese_choice}
                     onPress={() => {
-                        cheeseSetter(true);
+                        cheeseSetter("Yes");
                         setAnimateIn(false);
                         setTimeout(() => {
                             navHelper();
@@ -38,7 +38,7 @@ const CheeseChoice = ({ cheeseSetter, navHelper }) => {
                 <TouchableOpacity
                     style={styles.cheese_choice}
                     onPress={() => {
-                        cheeseSetter(false);
+                        cheeseSetter("No");
                         setAnimateIn(false);
                         setTimeout(() => {
                             navHelper();

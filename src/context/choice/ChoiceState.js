@@ -6,7 +6,7 @@ const ChoiceState = (props) => {
     const initialState = {
         wine: "",
         pax: "",
-        cheese: false,
+        cheese: "",
     };
     const [state, dispatch] = useReducer(choiceReducer, initialState);
 

@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, SafeAreaView, View } from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
+import choiceContext from "../context/choice/choiceContext";
 import WineChoice from "../components/WineChoice";
 import PaxChoice from "../components/PaxChoice";
 import CheeseChoice from "../components/CheeseChoice";
@@ -8,10 +9,14 @@ const GetStarted = ({ navigation }) => {
     const [showing, setShowing] = useState("wine");
     const [wine, setWine] = useState("");
     const [pax, setPax] = useState("");
-    const [cheese, setCheese] = useState(false);
+    const [cheese, setCheese] = useState("");
+
+    const ChoiceContext = useContext(choiceContext);
+    const { updateChoices } = ChoiceContext;
 
     const navToDash = () => {
-        navigation.navigate("Main", { Wine: wine, Pax: pax, Cheese: cheese });
+        updateChoices({ Wine: wine, Pax: pax, Cheese: cheese });
+        navigation.navigate("Main");
     };
 
     const choiceRender = () => {
