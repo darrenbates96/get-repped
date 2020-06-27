@@ -4,23 +4,32 @@ import { useSpring, animated } from "react-spring/native";
 import { withNavigation } from "react-navigation";
 import PrimaryButton from "./PrimaryButton";
 
-const AnimatedUserInput = animated(TextInput);
-const AnimatedPasswordInput = animated(TextInput);
+const AnimatedInput = animated(TextInput);
 
 const Login = ({ navigation }) => {
     // State for inputs
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [userError, setUserError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+
+    // Return inputs to normal styling depending in states when
+    // re-rendered
+    if (userError && username !== "") {
+        setUserError(false);
+    }
+    if (passwordError && password !== "") {
+        setPasswordError(false);
+    }
+
+    // Decided on input styling based on userError & passwordError
+    const userStyle = userError ? styles.inputError : styles.input;
+    const passwordStyle = passwordError ? styles.inputError : styles.input;
 
     // Spring props
-    const springUsername = useSpring({
-        config: { duration: 200 },
-        from: { opacity: 0, height: 20, width: "70%" },
-        to: { opacity: 1, height: 70, width: "100%" },
-    });
-    const springPassword = useSpring({
+    const springInput = useSpring({
         config: { duration: 300 },
-        from: { opacity: 0, height: 50, width: "85%" },
+        from: { opacity: 0, height: 20, width: "70%" },
         to: { opacity: 1, height: 70, width: "100%" },
     });
 
@@ -48,8 +57,8 @@ const Login = ({ navigation }) => {
     const inputRender = (name) => {
         if (name === "user") {
             return (
-                <AnimatedUserInput
-                    style={{ ...springUsername, ...styles.input }}
+                <AnimatedInput
+                    style={{ ...springInput, ...userStyle }}
                     value={username}
                     placeholder='Username'
                     placeholderTextColor='#bdbdbd'
@@ -58,8 +67,8 @@ const Login = ({ navigation }) => {
             );
         } else if (name === "pass") {
             return (
-                <AnimatedPasswordInput
-                    style={{ ...springPassword, ...styles.input }}
+                <AnimatedInput
+                    style={{ ...springInput, ...passwordStyle }}
                     value={password}
                     placeholder='Password'
                     placeholderTextColor='#bdbdbd'
@@ -83,13 +92,27 @@ export default withNavigation(Login);
 
 const styles = StyleSheet.create({
     container: {
-        height: 285,
         width: "80%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
     },
     input: {
+        borderRadius: 10,
+        backgroundColor: "white",
+        marginVertical: 10,
+        fontFamily: "Montserrat",
+        fontSize: 16,
+        paddingLeft: 15,
+        color: "#bdbdbd",
+        shadowColor: "black",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+    },
+    inputError: {
+        borderWidth: 1,
+        borderColor: "red",
         borderRadius: 10,
         backgroundColor: "white",
         marginVertical: 10,

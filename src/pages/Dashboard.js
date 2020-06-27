@@ -1,19 +1,11 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
-import choiceContext from "../context/choice/choiceContext";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 const Dashboard = () => {
-    const ChoiceContext = useContext(choiceContext);
-    const { wine, pax, cheese } = ChoiceContext;
     return (
-        <SafeAreaView forceInset={true}>
+        <View>
             <Text>Dash</Text>
-            <Text>
-                You Chose:{"\n"}Wine: {wine}
-                {"\n"}Pax: {pax}
-                {"\n"}Cheese: {cheese}
-            </Text>
-        </SafeAreaView>
+        </View>
     );
 };
 

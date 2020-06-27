@@ -38,6 +38,12 @@ const Landing = () => {
         }, 3000);
     };
 
+    // Header underline styling helper
+    const headerStyle =
+        toggle === "login"
+            ? styles.header_underline
+            : styles.header_underline_signup;
+
     // Helper to decide which toggle icon and text to render
     const renderToggleIcon = () => {
         if (toggle === "login") {
@@ -82,7 +88,7 @@ const Landing = () => {
                     <View style={styles.view_container}>
                         <View style={styles.header_container}>
                             <Text style={styles.header}>GetRepped.</Text>
-                            <View style={styles.header_underline} />
+                            <View style={headerStyle} />
                         </View>
                         {showFormToggle ? <FormToggle show={toggle} /> : null}
                         {renderToggleIcon()}
@@ -124,7 +130,7 @@ const styles = StyleSheet.create({
         width: "80%",
         display: "flex",
         flexDirection: "column",
-        alignItems: "flex-start",
+        alignItems: "center",
     },
     header: {
         fontFamily: "MontserratMedium",
@@ -140,6 +146,14 @@ const styles = StyleSheet.create({
         marginTop: 0,
         marginBottom: 35,
         alignSelf: "flex-start",
+    },
+    header_underline_signup: {
+        width: 60,
+        borderBottomWidth: 5,
+        borderBottomColor: "#f8a978",
+        marginTop: 0,
+        marginBottom: 35,
+        alignSelf: "flex-end",
     },
     icon_container: {
         width: "80%",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
 import { useSpring, animated } from "react-spring/native";
 import PrimaryButton from "./PrimaryButton";
@@ -8,10 +8,12 @@ const AnimatedInput = animated(TextInput);
 const Signup = () => {
     // State for TextInputs
     const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     // Spring props
-    const springName = useSpring({
-        config: { duration: 200 },
+    const springInput = useSpring({
+        config: { duration: 300 },
         from: { opacity: 0, height: 20, width: "70%" },
         to: { opacity: 1, height: 70, width: "100%" },
     });
@@ -19,13 +21,27 @@ const Signup = () => {
     return (
         <View style={styles.container}>
             <AnimatedInput
-                style={{ ...springName, ...styles.input }}
+                style={{ ...springInput, ...styles.input }}
                 onChangeText={(e) => setName(e)}
                 value={name}
-                placeholder='Name'
+                placeholder='Name and Surname'
                 placeholderTextColor='#bdbdbd'
             />
-            <PrimaryButton onTap={() => console.log("Signup Tapped")} />
+            <AnimatedInput
+                style={{ ...springInput, ...styles.input }}
+                onChangeText={(e) => setEmail(e)}
+                value={email}
+                placeholder='Email'
+                placeholderTextColor='#bdbdbd'
+            />
+            <AnimatedInput
+                style={{ ...springInput, ...styles.input }}
+                onChangeText={(e) => setPassword(e)}
+                value={password}
+                placeholder='Password'
+                placeholderTextColor='#bdbdbd'
+            />
+            <PrimaryButton />
         </View>
     );
 };
@@ -34,7 +50,6 @@ export default Signup;
 
 const styles = StyleSheet.create({
     container: {
-        height: 285,
         width: "80%",
         display: "flex",
         flexDirection: "column",
