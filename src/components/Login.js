@@ -8,8 +8,8 @@ const AnimatedInput = animated(TextInput);
 
 const Login = ({ navigation }) => {
     // State for inputs
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("Darren");
+    const [password, setPassword] = useState("420");
     const [userError, setUserError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 

@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useSpring, animated, config } from "react-spring/native";
 
 const DashCard = ({ size, title, info, negativeMargin }) => {
+    const [amount, setAmount] = useState(parseInt(info));
+    // Different card sizes depending on size passed in above
     const cardSize =
         size === "small" ? styles.cardContainerSmall : styles.cardContainer;
+
     return (
         <TouchableOpacity style={cardSize}>
             <Text style={styles.cardHeader}>{title}</Text>
             <View style={styles.underline} />
-            <Text style={styles.infoBigText}>{info.toString()}</Text>
+            <AnimatedText style={styles.infoBigText}>{info}</AnimatedText>
         </TouchableOpacity>
     );
 };
