@@ -7,6 +7,7 @@ import {
     ActivityIndicator,
 } from "react-native";
 import DashCard from "../components/DashCard";
+import WeightGraph from "../components/WeightGraph";
 import BottomNavigation from "../components/BottomNavigation";
 
 const Dashboard = () => {
@@ -22,9 +23,9 @@ const Dashboard = () => {
             return (
                 <Fragment>
                     <View style={styles.topPanelContainer}>
-                        <Text style={styles.panelHeader}>Hey Darren,</Text>
+                        <Text style={styles.panelHeader}>Your Dash,</Text>
                     </View>
-                    <View style={styles.contentContainer}>
+                    <View style={styles.cardsContainer}>
                         <DashCard
                             size='small'
                             title='Daily Calorie Goal:'
@@ -37,6 +38,9 @@ const Dashboard = () => {
                             info={570}
                             negativeMargin={true}
                         />
+                    </View>
+                    <View style={styles.graphContainer}>
+                        <WeightGraph />
                     </View>
                 </Fragment>
             );
@@ -81,21 +85,32 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         display: "flex",
         flexDirection: "column",
+        justifyContent: "flex-start",
     },
     panelHeader: {
         fontSize: 30,
         fontFamily: "MontserratMedium",
         letterSpacing: 2,
         color: "white",
-        marginTop: 30,
+        marginTop: 40,
     },
-    contentContainer: {
+    cardsContainer: {
         width: "100%",
         paddingHorizontal: "5%",
         display: "flex",
-        flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
         backgroundColor: "white",
+        zIndex: 2,
+    },
+    graphContainer: {
+        width: "100%",
+        padding: "5%",
+        paddingHorizontal: "5%",
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+        backgroundColor: "white",
+        zIndex: 1,
     },
 });

@@ -1,19 +1,27 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 
-const DashCard = ({ size, title, info, negativeMargin }) => {
-    const [amount, setAmount] = useState(parseInt(info));
+const AnimatedView = animated(View);
+
+const DashCard = ({ size, title, info }) => {
     // Different card sizes depending on size passed in above
     const cardSize =
         size === "small" ? styles.cardContainerSmall : styles.cardContainer;
 
+    // Spring props
+    const springTouch = useSpring({
+        config: config.stiff,
+        from: { opacity: 0, height: 100 },
+        to: { opacity: 1, height: 150 },
+    });
+
     return (
-        <TouchableOpacity style={cardSize}>
+        <AnimatedView style={{ ...springTouch, ...cardSize }}>
             <Text style={styles.cardHeader}>{title}</Text>
             <View style={styles.underline} />
-            <AnimatedText style={styles.infoBigText}>{info}</AnimatedText>
-        </TouchableOpacity>
+            <Text style={styles.infoBigText}>{info}</Text>
+        </AnimatedView>
     );
 };
 
@@ -22,7 +30,6 @@ export default DashCard;
 const styles = StyleSheet.create({
     cardContainer: {
         width: "100%",
-        height: 150,
         padding: "10%",
         backgroundColor: "white",
         borderRadius: 20,
@@ -38,7 +45,6 @@ const styles = StyleSheet.create({
     },
     cardContainerSmall: {
         width: "47%",
-        height: 150,
         padding: 15,
         backgroundColor: "white",
         borderRadius: 20,

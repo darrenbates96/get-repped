@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { useSpring, animated } from "react-spring/native";
+import { useSpring, animated, config } from "react-spring/native";
 
 const AnimatedButton = animated(View);
 
 const PrimaryButton = ({ onTap }) => {
     // Spring props
     const springButton = useSpring({
-        config: { duration: 300 },
+        config: config.stiff,
         from: { opacity: 0, height: 20, width: "70%" },
         to: { opacity: 1, height: 70, width: "100%" },
     });

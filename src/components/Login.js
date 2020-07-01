@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput } from "react-native";
-import { useSpring, animated } from "react-spring/native";
+import { useSpring, animated, config } from "react-spring/native";
 import { withNavigation } from "react-navigation";
 import PrimaryButton from "./PrimaryButton";
 
@@ -28,7 +28,7 @@ const Login = ({ navigation }) => {
 
     // Spring props
     const springInput = useSpring({
-        config: { duration: 300 },
+        config: config.stiff,
         from: { opacity: 0, height: 20, width: "70%" },
         to: { opacity: 1, height: 70, width: "100%" },
     });
