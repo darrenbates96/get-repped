@@ -11,16 +11,26 @@ const DashCard = ({ size, title, info }) => {
 
     // Spring props
     const springTouch = useSpring({
-        config: config.stiff,
+        config: config.slow,
         from: { opacity: 0, height: 100 },
         to: { opacity: 1, height: 150 },
     });
 
     return (
         <AnimatedView style={{ ...springTouch, ...cardSize }}>
-            <Text style={styles.cardHeader}>{title}</Text>
-            <View style={styles.underline} />
-            <Text style={styles.infoBigText}>{info}</Text>
+            <View
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                }}
+            >
+                <Text style={styles.cardHeader}>{title}</Text>
+                <View style={styles.underline} />
+                <Text style={styles.infoBigText}>{info}</Text>
+            </View>
         </AnimatedView>
     );
 };
@@ -68,8 +78,9 @@ const styles = StyleSheet.create({
     underline: {
         width: "50%",
         height: 1,
-        backgroundColor: "#f8a978",
+        backgroundColor: "#eb5a00",
         marginBottom: 10,
+        alignSelf: "flex-start",
     },
     infoBigText: {
         fontSize: 50,

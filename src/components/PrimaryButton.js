@@ -26,12 +26,8 @@ const styles = StyleSheet.create({
     button: {
         width: "100%",
         borderRadius: 10,
-        backgroundColor: "#f8a978",
+        backgroundColor: "#eb5a00",
         marginTop: 10,
-        shadowColor: "black",
-        shadowOffset: { width: 6, height: 6 },
-        shadowOpacity: 0.4,
-        shadowRadius: 8,
     },
     touchable: {
         height: "100%",

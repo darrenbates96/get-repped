@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { withNavigation } from "react-navigation";
 import { Entypo } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useSpring, animated, config } from "react-spring/native";
 
 const BottomNavigation = ({ navigation }) => {
     // Navigation helper function
@@ -23,18 +24,24 @@ const BottomNavigation = ({ navigation }) => {
         <View style={styles.navContainer}>
             <TouchableOpacity
                 style={styles.menuItemContainer}
-                onPress={() => navHelper("Dash")}
+                onPress={() => {
+                    setSelected("Dash");
+                    navHelper("Dash");
+                }}
             >
-                <Entypo name='home' size={40} color={"white"} />
+                <Entypo name='home' size={30} color={"white"} />
                 <Text style={styles.menuItemText}>Dash</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.menuItemContainer}
-                onPress={() => navHelper("Gym")}
+                onPress={() => {
+                    setSelected("Gym");
+                    navHelper("Gym");
+                }}
             >
                 <FontAwesome5
                     name='dumbbell'
-                    size={36}
+                    size={26}
                     color={"white"}
                     style={{ marginBottom: 3 }}
                 />
@@ -42,22 +49,28 @@ const BottomNavigation = ({ navigation }) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.menuItemContainer}
-                onPress={() => navHelper("Diet")}
+                onPress={() => {
+                    setSelected("Diet");
+                    navHelper("Diet");
+                }}
             >
                 <MaterialCommunityIcons
                     name='food-fork-drink'
-                    size={44}
+                    size={30}
                     color={"white"}
                 />
                 <Text style={styles.menuItemText}>Diet</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.menuItemContainer}
-                onPress={() => navHelper("More")}
+                onPress={() => {
+                    setSelected("More");
+                    navHelper("More");
+                }}
             >
                 <Entypo
                     name='menu'
-                    size={50}
+                    size={40}
                     color={"white"}
                     style={{ marginBottom: -10 }}
                 />
@@ -78,7 +91,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: "#f8a978",
+        backgroundColor: "rgba( 0, 0, 0, 0.5)",
     },
     menuItemContainer: {
         display: "flex",

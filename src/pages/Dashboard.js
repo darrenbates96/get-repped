@@ -5,10 +5,12 @@ import {
     View,
     SafeAreaView,
     ActivityIndicator,
+    TouchableOpacity,
 } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 import DashCard from "../components/DashCard";
 import WeightGraph from "../components/WeightGraph";
+import { EvilIcons } from "@expo/vector-icons";
 import BottomNavigation from "../components/BottomNavigation";
 
 const AnimatedView = animated(View);
@@ -20,7 +22,7 @@ const Dashboard = () => {
 
     // Spring props
     const springSplit = useSpring({
-        config: config.stiff,
+        config: config.slow,
         from: { opacity: 0 },
         to: { opacity: 1, flex: 1 },
     });
@@ -52,8 +54,37 @@ const Dashboard = () => {
                     <View style={styles.contentRestContainer}>
                         <WeightGraph />
                         <AnimatedView
-                            style={{ ...springSplit, ...styles.splitContainer }}
-                        ></AnimatedView>
+                            style={{
+                                ...springSplit,
+                                ...styles.splitContainer,
+                            }}
+                        >
+                            <Text style={styles.splitHeader}>
+                                Training Preview:
+                            </Text>
+                            <View style={styles.underline} />
+                            <TouchableOpacity
+                                style={styles.splitsContentContainer}
+                            >
+                                <View style={styles.splitBlock}>
+                                    <Text style={styles.todaySplit}>
+                                        Chest{"\n"}+{"\n"}Legs
+                                    </Text>
+                                </View>
+                                <View style={styles.splitBlock}>
+                                    <Text style={styles.tomorrowSplit}>
+                                        Back{"\n"}+{"\n"}Biceps
+                                    </Text>
+                                </View>
+                                <View style={styles.splitBlock}>
+                                    <EvilIcons
+                                        name='arrow-right'
+                                        size={40}
+                                        color='grey'
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        </AnimatedView>
                     </View>
                 </Fragment>
             );
@@ -90,7 +121,7 @@ const styles = StyleSheet.create({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "#f8a978",
+        backgroundColor: "black",
     },
     topPanelContainer: {
         width: "100%",
@@ -122,18 +153,60 @@ const styles = StyleSheet.create({
         display: "flex",
         flex: 1,
         flexDirection: "column",
+        justifyContent: "space-between",
         backgroundColor: "white",
         zIndex: 1,
     },
     splitContainer: {
         width: "100%",
         marginVertical: 20,
+        padding: 20,
         display: "flex",
+        flexDirection: "column",
         borderRadius: 20,
         backgroundColor: "white",
         shadowColor: "black",
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.3,
         shadowRadius: 8,
+    },
+    splitHeader: {
+        fontSize: 14,
+        fontFamily: "Montserrat",
+        color: "#4a4a4a",
+        marginBottom: 5,
+    },
+    underline: {
+        width: 65,
+        height: 1,
+        backgroundColor: "#eb5a00",
+        marginBottom: 10,
+    },
+    splitsContentContainer: {
+        width: "100%",
+        display: "flex",
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    splitBlock: {
+        width: "30%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    todaySplit: {
+        fontSize: 24,
+        fontFamily: "MontserratMedium",
+        color: "#4a4a4a",
+        textAlign: "center",
+    },
+    tomorrowSplit: {
+        fontSize: 14,
+        fontFamily: "MontserratMedium",
+        color: "#4a4a4a",
+        textAlign: "center",
     },
 });

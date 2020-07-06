@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 
 const AnimatedView = animated(View);
@@ -7,26 +7,27 @@ const AnimatedView = animated(View);
 const WeightGraph = () => {
     // Mimicking real data from firebase
     const dataRaw = ["66.3", "64.1", "62.3"];
+    const dataMonths = ["May", "June", "July"];
 
     // Spring props
     const springBarOne = useSpring({
-        config: config.stiff,
+        config: config.slow,
         from: { height: "0%", opacity: 0 },
         to: { height: `${dataRaw[0]}%`, opacity: 1 },
     });
     const springBarTwo = useSpring({
-        config: config.stiff,
+        config: config.slow,
         from: { height: "0%", opacity: 0 },
         to: { height: `${dataRaw[1]}%`, opacity: 1 },
     });
     const springBarThree = useSpring({
-        config: config.stiff,
+        config: config.slow,
         from: { height: "0%", opacity: 0 },
         to: { height: `${dataRaw[2]}%`, opacity: 1 },
     });
 
     return (
-        <View style={styles.chartContent}>
+        <TouchableOpacity style={styles.chartContent}>
             <View style={styles.yLabel}>
                 <Text style={styles.yText}>Weight (kg)</Text>
             </View>
@@ -34,28 +35,36 @@ const WeightGraph = () => {
                 <View style={styles.graphContainer}>
                     <View style={styles.barContainer}>
                         <Text style={styles.barLabel}>{dataRaw[0]}</Text>
+
                         <AnimatedView
                             style={{ ...springBarOne, ...styles.graphBar }}
                         />
                     </View>
                     <View style={styles.barContainer}>
                         <Text style={styles.barLabel}>{dataRaw[1]}</Text>
+
                         <AnimatedView
                             style={{ ...springBarTwo, ...styles.graphBar }}
                         />
                     </View>
                     <View style={styles.barContainer}>
                         <Text style={styles.barLabel}>{dataRaw[2]}</Text>
+
                         <AnimatedView
-                            style={{ ...springBarThree, ...styles.graphBar }}
+                            style={{
+                                ...springBarThree,
+                                ...styles.graphBar,
+                            }}
                         />
                     </View>
                 </View>
                 <View style={styles.xLabel}>
-                    <Text style={styles.xText}>Time</Text>
+                    <Text style={styles.xText}>{dataMonths[0]}</Text>
+                    <Text style={styles.xText}>{dataMonths[1]}</Text>
+                    <Text style={styles.xText}>{dataMonths[2]}</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -65,6 +74,7 @@ const styles = StyleSheet.create({
     chartContent: {
         width: "100%",
         height: 250,
+        marginTop: -20,
         borderRadius: 20,
         display: "flex",
         flexDirection: "row",
@@ -105,7 +115,8 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "10%",
         display: "flex",
-        justifyContent: "center",
+        flexDirection: "row",
+        justifyContent: "space-around",
         alignItems: "center",
     },
     xText: {
@@ -128,7 +139,7 @@ const styles = StyleSheet.create({
     },
     graphBar: {
         width: "100%",
-        backgroundColor: "#f8a978",
+        backgroundColor: "#eb5a00",
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
     },

@@ -6,6 +6,7 @@ import {
     View,
     ActivityIndicator,
     TouchableOpacity,
+    ImageBackground,
 } from "react-native";
 import * as Font from "expo-font";
 import FormToggle from "../components/FormToggle";
@@ -53,7 +54,7 @@ const Landing = () => {
                     onPress={() => setToggle("signup")}
                 >
                     <Text style={styles.icon_text}>Sign Up</Text>
-                    <EvilIcons name='arrow-right' size={60} color='#f8a978' />
+                    <EvilIcons name='arrow-right' size={60} color='#eb5a00' />
                 </TouchableOpacity>
             );
         } else if (toggle === "signup") {
@@ -62,7 +63,7 @@ const Landing = () => {
                     style={styles.icon_container_left}
                     onPress={() => setToggle("login")}
                 >
-                    <EvilIcons name='arrow-left' size={60} color='#f8a978' />
+                    <EvilIcons name='arrow-left' size={60} color='#eb5a00' />
                     <Text style={styles.icon_text}>Log In</Text>
                 </TouchableOpacity>
             );
@@ -90,8 +91,12 @@ const Landing = () => {
                             <Text style={styles.header}>GetRepped.</Text>
                             <View style={headerStyle} />
                         </View>
-                        {showFormToggle ? <FormToggle show={toggle} /> : null}
-                        {renderToggleIcon()}
+                        <View style={styles.bottom_container}>
+                            {showFormToggle ? (
+                                <FormToggle show={toggle} />
+                            ) : null}
+                            {renderToggleIcon()}
+                        </View>
                     </View>
                 );
             }
@@ -99,15 +104,25 @@ const Landing = () => {
     };
 
     return (
-        <SafeAreaView forceInset={true} style={styles.container}>
-            {renderHelper()}
-        </SafeAreaView>
+        <ImageBackground
+            style={styles.backImageStyle}
+            source={require("../assets/AccountsBackground.jpg")}
+        >
+            <SafeAreaView forceInset={true} style={styles.container}>
+                {renderHelper()}
+            </SafeAreaView>
+        </ImageBackground>
     );
 };
 
 export default Landing;
 
 const styles = StyleSheet.create({
+    backImageStyle: {
+        width: "100%",
+        height: "100%",
+        resizeMode: "cover",
+    },
     container: {
         display: "flex",
         height: "100%",
@@ -115,7 +130,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#f2f2f2",
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
     },
     view_container: {
         width: "100%",
@@ -124,7 +139,13 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#f2f2f2",
+        backgroundColor: "transparent",
+    },
+    bottom_container: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
     },
     header_container: {
         width: "80%",
@@ -136,21 +157,21 @@ const styles = StyleSheet.create({
         fontFamily: "MontserratMedium",
         fontSize: 48,
         letterSpacing: 2,
-        color: "#4a4a4a",
+        color: "white",
         marginBottom: 10,
     },
     header_underline: {
         width: 60,
-        borderBottomWidth: 5,
-        borderBottomColor: "#f8a978",
+        borderBottomWidth: 2,
+        borderBottomColor: "#eb5a00",
         marginTop: 0,
         marginBottom: 35,
         alignSelf: "flex-start",
     },
     header_underline_signup: {
         width: 60,
-        borderBottomWidth: 5,
-        borderBottomColor: "#f8a978",
+        borderBottomWidth: 2,
+        borderBottomColor: "#eb5a00",
         marginTop: 0,
         marginBottom: 35,
         alignSelf: "flex-end",
@@ -174,6 +195,6 @@ const styles = StyleSheet.create({
     icon_text: {
         fontFamily: "MontserratMedium",
         fontSize: 16,
-        color: "#4a4a4a",
+        color: "white",
     },
 });

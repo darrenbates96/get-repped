@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     input: {
         borderRadius: 10,
-        backgroundColor: "white",
+        backgroundColor: "rgba(255,255,255,0.15)",
         marginVertical: 10,
         fontFamily: "Montserrat",
         fontSize: 16,
