@@ -7,12 +7,13 @@ import {
     ActivityIndicator,
     TouchableOpacity,
 } from "react-native";
+import { Dimensions } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 import DashCard from "../components/DashCard";
 import WeightGraph from "../components/WeightGraph";
 import { EvilIcons } from "@expo/vector-icons";
-import BottomNavigation from "../components/BottomNavigation";
 
+const deviceHeight = Dimensions.get("window").height;
 const AnimatedView = animated(View);
 
 const Dashboard = () => {
@@ -105,12 +106,7 @@ const Dashboard = () => {
         }
     };
 
-    return (
-        <SafeAreaView forceInset={true} style={styles.dashContainer}>
-            {renderContent()}
-            <BottomNavigation />
-        </SafeAreaView>
-    );
+    return <View style={styles.dashContainer}>{renderContent()}</View>;
 };
 
 export default Dashboard;
@@ -118,10 +114,9 @@ export default Dashboard;
 const styles = StyleSheet.create({
     dashContainer: {
         width: "100%",
-        height: "100%",
+        flex: 1,
         display: "flex",
         flexDirection: "column",
-        backgroundColor: "black",
     },
     topPanelContainer: {
         width: "100%",

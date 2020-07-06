@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 const Gym = () => {
     return (
-        <View>
+        <View style={styles.mainContainer}>
             <Text>Gym</Text>
         </View>
     );
@@ -11,4 +11,9 @@ const Gym = () => {
 
 export default Gym;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    mainContainer: {
+        width: "100%",
+        flex: 1,
+    },
+});
