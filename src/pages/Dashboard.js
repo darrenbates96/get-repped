@@ -3,17 +3,14 @@ import {
     StyleSheet,
     Text,
     View,
-    SafeAreaView,
     ActivityIndicator,
     TouchableOpacity,
 } from "react-native";
-import { Dimensions } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 import DashCard from "../components/DashCard";
 import WeightGraph from "../components/WeightGraph";
 import { EvilIcons } from "@expo/vector-icons";
 
-const deviceHeight = Dimensions.get("window").height;
 const AnimatedView = animated(View);
 
 const Dashboard = () => {
@@ -130,7 +127,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontFamily: "MontserratMedium",
         letterSpacing: 2,
-        color: "white",
+        color: "black",
         marginTop: 40,
     },
     cardsContainer: {

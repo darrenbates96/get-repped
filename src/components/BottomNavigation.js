@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -9,7 +9,6 @@ import {
 import { Entypo } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useSpring, animated, config } from "react-spring/native";
 import Dashboard from "../pages/Dashboard";
 import Gym from "../pages/Gym";
 import Diet from "../pages/Diet";
@@ -23,66 +22,81 @@ const BottomNavigation = () => {
         return (
             <View style={styles.navContainer}>
                 <TouchableOpacity
-                    style={styles.menuItemContainer}
+                    style={
+                        showing === "Dash"
+                            ? styles.menuItemContainerSelected
+                            : styles.menuItemContainer
+                    }
                     onPress={() => {
                         setShowing("Dash");
                     }}
                 >
-                    <Entypo
-                        name='home'
-                        size={25}
-                        color={showing === "Dash" ? "#eb5a00" : "white"}
-                    />
                     {showing === "Dash" ? (
                         <Text style={styles.menuItemText}>Dash</Text>
-                    ) : null}
+                    ) : (
+                        <Entypo name='home' size={25} color={"black"} />
+                    )}
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.menuItemContainer}
+                    style={
+                        showing === "Gym"
+                            ? styles.menuItemContainerSelected
+                            : styles.menuItemContainer
+                    }
                     onPress={() => {
                         setShowing("Gym");
                     }}
                 >
-                    <FontAwesome5
-                        name='dumbbell'
-                        size={21}
-                        color={showing === "Gym" ? "#eb5a00" : "white"}
-                        style={{ marginBottom: 3 }}
-                    />
                     {showing === "Gym" ? (
-                        <Text style={styles.menuItemTextGym}>Gym</Text>
-                    ) : null}
+                        <Text style={styles.menuItemText}>Gym</Text>
+                    ) : (
+                        <FontAwesome5
+                            name='dumbbell'
+                            size={21}
+                            color={"black"}
+                        />
+                    )}
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.menuItemContainer}
+                    style={
+                        showing === "Diet"
+                            ? styles.menuItemContainerSelected
+                            : styles.menuItemContainer
+                    }
                     onPress={() => {
                         setShowing("Diet");
                     }}
                 >
-                    <MaterialCommunityIcons
-                        name='food-fork-drink'
-                        size={25}
-                        color={showing === "Diet" ? "#eb5a00" : "white"}
-                    />
                     {showing === "Diet" ? (
                         <Text style={styles.menuItemText}>Diet</Text>
-                    ) : null}
+                    ) : (
+                        <MaterialCommunityIcons
+                            name='food-fork-drink'
+                            size={25}
+                            color={"black"}
+                        />
+                    )}
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.menuItemContainer}
+                    style={
+                        showing === "More"
+                            ? styles.menuItemContainerSelected
+                            : styles.menuItemContainer
+                    }
                     onPress={() => {
                         setShowing("More");
                     }}
                 >
-                    <Entypo
-                        name='menu'
-                        size={30}
-                        color={showing === "More" ? "#eb5a00" : "white"}
-                        style={{ marginBottom: -4 }}
-                    />
                     {showing === "More" ? (
                         <Text style={styles.menuItemText}>More</Text>
-                    ) : null}
+                    ) : (
+                        <Entypo
+                            name='menu'
+                            size={30}
+                            color={"black"}
+                            style={{ marginBottom: -4 }}
+                        />
+                    )}
                 </TouchableOpacity>
             </View>
         );
@@ -116,36 +130,43 @@ const styles = StyleSheet.create({
     mainContainer: {
         width: "100%",
         height: "100%",
-        backgroundColor: "black",
+        backgroundColor: "white",
     },
     navContainer: {
         width: "100%",
-        height: 60,
+        height: 70,
         paddingVertical: 10,
         paddingHorizontal: 30,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: "rgba( 0, 0, 0, 0.5)",
+        backgroundColor: "white",
     },
     menuItemContainer: {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "white",
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+    },
+    menuItemContainerSelected: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ffd4ba",
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 20,
     },
     menuItemText: {
-        fontSize: 10,
+        fontSize: 12,
         fontFamily: "MontserratMedium",
         letterSpacing: 2,
         color: "#eb5a00",
-    },
-    menuItemTextGym: {
-        fontSize: 10,
-        fontFamily: "MontserratMedium",
-        letterSpacing: 2,
-        color: "#eb5a00",
-        marginBottom: -5,
     },
 });
