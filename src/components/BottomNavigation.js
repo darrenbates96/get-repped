@@ -134,9 +134,9 @@ const styles = StyleSheet.create({
     },
     navContainer: {
         width: "100%",
-        height: 70,
-        paddingVertical: 10,
-        paddingHorizontal: 30,
+        paddingTop: 15,
+        paddingBottom: 25,
+        paddingHorizontal: 35,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",

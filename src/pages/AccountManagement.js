@@ -80,7 +80,7 @@ const Landing = () => {
             if (!showFormToggle) {
                 return (
                     <View style={styles.view_container}>
-                        <Text style={styles.header}>GetRepped.</Text>
+                        <Text style={styles.header}>Calculate.</Text>
                         <ActivityIndicator size='large' color='#2d4059' />
                     </View>
                 );
@@ -88,7 +88,7 @@ const Landing = () => {
                 return (
                     <View style={styles.view_container}>
                         <View style={styles.header_container}>
-                            <Text style={styles.header}>GetRepped.</Text>
+                            <Text style={styles.header}>Calculate.</Text>
                             <View style={headerStyle} />
                         </View>
                         <View style={styles.bottom_container}>
@@ -155,25 +155,25 @@ const styles = StyleSheet.create({
     },
     header: {
         fontFamily: "MontserratMedium",
-        fontSize: 48,
+        fontSize: 35,
         letterSpacing: 2,
         color: "white",
         marginBottom: 10,
     },
     header_underline: {
-        width: 60,
+        width: "50%",
         borderBottomWidth: 2,
         borderBottomColor: "#eb5a00",
-        marginTop: 0,
-        marginBottom: 35,
+        marginTop: 40,
+        marginBottom: 10,
         alignSelf: "flex-start",
     },
     header_underline_signup: {
-        width: 60,
+        width: "50%",
         borderBottomWidth: 2,
         borderBottomColor: "#eb5a00",
-        marginTop: 0,
-        marginBottom: 35,
+        marginTop: 30,
+        marginBottom: 10,
         alignSelf: "flex-end",
     },
     icon_container: {

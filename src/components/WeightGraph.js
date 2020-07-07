@@ -28,27 +28,24 @@ const WeightGraph = () => {
 
     return (
         <TouchableOpacity style={styles.chartContent}>
-            <View style={styles.yLabel}>
-                <Text style={styles.yText}>Weight (kg)</Text>
-            </View>
             <View style={styles.rightContent}>
                 <View style={styles.graphContainer}>
                     <View style={styles.barContainer}>
-                        <Text style={styles.barLabel}>{dataRaw[0]}</Text>
+                        <Text style={styles.barLabel}>{dataRaw[0]}kg</Text>
 
                         <AnimatedView
                             style={{ ...springBarOne, ...styles.graphBar }}
                         />
                     </View>
                     <View style={styles.barContainer}>
-                        <Text style={styles.barLabel}>{dataRaw[1]}</Text>
+                        <Text style={styles.barLabel}>{dataRaw[1]}kg</Text>
 
                         <AnimatedView
                             style={{ ...springBarTwo, ...styles.graphBar }}
                         />
                     </View>
                     <View style={styles.barContainer}>
-                        <Text style={styles.barLabel}>{dataRaw[2]}</Text>
+                        <Text style={styles.barLabel}>{dataRaw[2]}kg</Text>
 
                         <AnimatedView
                             style={{
@@ -72,34 +69,16 @@ export default WeightGraph;
 
 const styles = StyleSheet.create({
     chartContent: {
-        width: "100%",
+        width: "80%",
         height: 250,
         marginTop: -20,
+        marginLeft: "10%",
         borderRadius: 20,
         display: "flex",
         flexDirection: "row",
-        shadowColor: "black",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-    },
-    yLabel: {
-        width: "8%",
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    yText: {
-        width: "350%",
-        transform: [{ rotate: "-90deg" }],
-        textAlign: "center",
-        fontSize: 12,
-        fontFamily: "Montserrat",
-        color: "#4a4a4a",
     },
     rightContent: {
-        width: "90%",
+        width: "100%",
         height: "100%",
         display: "flex",
     },
@@ -108,21 +87,22 @@ const styles = StyleSheet.create({
         display: "flex",
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         alignItems: "flex-end",
     },
     xLabel: {
         width: "100%",
         height: "10%",
+        paddingHorizontal: "10%",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         alignItems: "center",
     },
     xText: {
         fontSize: 12,
         fontFamily: "Montserrat",
-        color: "#4a4a4a",
+        color: "black",
     },
     barContainer: {
         width: "30%",
@@ -135,7 +115,8 @@ const styles = StyleSheet.create({
     barLabel: {
         fontSize: 10,
         fontFamily: "Montserrat",
-        color: "#4a4a4a",
+        color: "black",
+        marginBottom: 5,
     },
     graphBar: {
         width: "100%",

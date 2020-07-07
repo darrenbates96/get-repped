@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
 } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
-import DashCard from "../components/DashCard";
 import WeightGraph from "../components/WeightGraph";
 import { EvilIcons } from "@expo/vector-icons";
 
@@ -32,25 +31,24 @@ const Dashboard = () => {
         if (dataLoaded) {
             return (
                 <Fragment>
-                    <View style={styles.topPanelContainer}>
-                        <Text style={styles.panelHeader}>Your Dash,</Text>
+                    <View style={styles.dietMaintenanceContainer}>
+                        <Text style={styles.dietHeader}>Maintenance</Text>
+                        <Text style={styles.dietMaintenance}>2300</Text>
+                        <Text style={styles.dietMaintenancePost}>kcals</Text>
                     </View>
                     <View style={styles.cardsContainer}>
-                        <DashCard
-                            size='small'
-                            title='Daily Calorie Goal:'
-                            info={2000}
-                            negativeMargin={true}
-                        />
-                        <DashCard
-                            size='small'
-                            title="You've Consumed:"
-                            info={570}
-                            negativeMargin={true}
-                        />
+                        <View style={styles.calorieGoal}>
+                            <Text style={styles.calorieText}>2000</Text>
+                            <Text style={styles.calorieSubText}>your goal</Text>
+                        </View>
+                        <View style={styles.calorieCurrent}>
+                            <Text style={styles.calorieText}>835</Text>
+                            <Text style={styles.calorieSubText}>
+                                you've consumed
+                            </Text>
+                        </View>
                     </View>
                     <View style={styles.contentRestContainer}>
-                        <WeightGraph />
                         <AnimatedView
                             style={{
                                 ...springSplit,
@@ -83,6 +81,7 @@ const Dashboard = () => {
                                 </View>
                             </TouchableOpacity>
                         </AnimatedView>
+                        <WeightGraph />
                     </View>
                 </Fragment>
             );
@@ -115,33 +114,77 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
     },
-    topPanelContainer: {
+    dietMaintenanceContainer: {
         width: "100%",
-        height: 200,
-        paddingHorizontal: 30,
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-    },
-    panelHeader: {
-        fontSize: 30,
-        fontFamily: "MontserratMedium",
-        letterSpacing: 2,
-        color: "black",
-        marginTop: 40,
-    },
-    cardsContainer: {
-        width: "100%",
-        paddingHorizontal: "5%",
+        marginTop: 20,
+        paddingLeft: "10%",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
+        alignItems: "center",
+    },
+    dietHeader: {
+        fontSize: 10,
+        fontFamily: "Montserrat",
+        color: "black",
+        alignSelf: "flex-start",
+        paddingTop: 20,
+        paddingRight: 10,
+    },
+    dietMaintenancePost: {
+        fontSize: 10,
+        fontFamily: "Montserrat",
+        color: "black",
+        alignSelf: "flex-end",
+        paddingBottom: 20,
+    },
+    dietMaintenance: {
+        fontSize: 80,
+        fontFamily: "Montserrat",
+        color: "black",
+    },
+    cardsContainer: {
+        width: "90%",
+        height: 160,
+        marginLeft: "10%",
+        marginTop: 10,
+        display: "flex",
+        flexDirection: "row",
         backgroundColor: "white",
-        zIndex: 2,
+    },
+    calorieGoal: {
+        width: "55%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        borderTopLeftRadius: 40,
+        borderBottomLeftRadius: 40,
+        backgroundColor: "#eb5a00",
+    },
+    calorieCurrent: {
+        width: "45%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#eb5a00",
+    },
+    calorieText: {
+        fontSize: 55,
+        fontFamily: "Montserrat",
+        textAlign: "center",
+        color: "white",
+    },
+    calorieSubText: {
+        fontSize: 10,
+        fontFamily: "Montserrat",
+        color: "white",
     },
     contentRestContainer: {
         width: "100%",
-        paddingHorizontal: "5%",
         display: "flex",
         flex: 1,
         flexDirection: "column",
