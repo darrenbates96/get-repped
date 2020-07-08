@@ -5,6 +5,7 @@ import {
     View,
     ActivityIndicator,
     TouchableOpacity,
+    Platform,
 } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 import WeightGraph from "../components/WeightGraph";
@@ -18,10 +19,10 @@ const Dashboard = () => {
     const [dataLoaded, setDataLoaded] = useState(true);
 
     // Spring props
-    const springSplit = useSpring({
+    const springGrow = useSpring({
         config: config.slow,
-        from: { opacity: 0 },
-        to: { opacity: 1, flex: 1 },
+        from: { opacity: 0, marginLeft: "-90%" },
+        to: { opacity: 1, marginLeft: "10%" },
     });
     const springFadeIn = useSpring({
         config: config.slow,
@@ -52,8 +53,10 @@ const Dashboard = () => {
                         }}
                     >
                         <Text style={styles.dietHeader}>maintenance</Text>
-                        <Text style={styles.dietMaintenance}>2300</Text>
-                        <Text style={styles.dietMaintenancePost}>kcal</Text>
+                        <View style={styles.dietCaloriesContainer}>
+                            <Text style={styles.dietMaintenance}>2300</Text>
+                            <Text style={styles.dietMaintenancePost}>kcal</Text>
+                        </View>
                     </AnimatedView>
                     <AnimatedView
                         style={{ ...springCals, ...styles.cardsContainer }}
@@ -83,12 +86,37 @@ const Dashboard = () => {
                     </TouchableOpacity>
                     <View style={styles.contentRestContainer}>
                         <Text style={styles.gymHeader}>gym</Text>
-                        <View style={styles.gymContainer}>
-                            <View style={styles.gymDay}>
-                                <Text style={styles.gymDayText}>push day</Text>
-                            </View>
-                            <View style={styles.gymDetails}></View>
-                        </View>
+                        <TouchableOpacity style={styles.gymTouch}>
+                            <AnimatedView
+                                style={{
+                                    ...springGrow,
+                                    ...styles.gymContainer,
+                                }}
+                            >
+                                <View style={styles.gymDay}>
+                                    <Text style={styles.gymDayText}>
+                                        push day
+                                    </Text>
+                                </View>
+                                <View style={styles.gymDetails}>
+                                    <Text style={styles.gymDetailsText}>
+                                        Bench Press
+                                    </Text>
+                                    <Text style={styles.gymDetailsText1}>
+                                        Dumbell Incline Press
+                                    </Text>
+                                    <Text style={styles.gymDetailsText2}>
+                                        Military Press
+                                    </Text>
+                                    <EvilIcons
+                                        name='chevron-down'
+                                        color={"lightgrey"}
+                                        size={30}
+                                        style={{ alignSelf: "center" }}
+                                    />
+                                </View>
+                            </AnimatedView>
+                        </TouchableOpacity>
                         <Text style={styles.weightHeader}>weight</Text>
                         <WeightGraph />
                     </View>
@@ -125,20 +153,24 @@ const styles = StyleSheet.create({
     },
     dietMaintenanceContainer: {
         width: "100%",
-        paddingTop: 40,
+        marginTop: Platform.OS === "ios" ? 40 : 70,
         paddingLeft: "10%",
         display: "flex",
-        flexDirection: "row",
+        flexDirection: "column",
         justifyContent: "flex-start",
-        alignItems: "center",
+    },
+    dietCaloriesContainer: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        marginBottom: -5,
     },
     dietHeader: {
         fontSize: 14,
         fontFamily: "MontserratMedium",
         color: "black",
         alignSelf: "flex-start",
-        paddingTop: 20,
-        paddingRight: 10,
+        marginBottom: -10,
     },
     dietMaintenancePost: {
         fontSize: 10,
@@ -155,7 +187,6 @@ const styles = StyleSheet.create({
     cardsContainer: {
         width: "90%",
         height: 160,
-        marginTop: 10,
         display: "flex",
         flexDirection: "row",
         backgroundColor: "white",
@@ -231,12 +262,16 @@ const styles = StyleSheet.create({
         color: "black",
         marginLeft: "10%",
     },
-    gymContainer: {
-        width: "80%",
-        marginLeft: "10%",
-        paddingVertical: 10,
+    gymTouch: {
+        width: "100%",
         display: "flex",
         flex: 1,
+    },
+    gymContainer: {
+        width: "80%",
+        height: "100%",
+        paddingVertical: 10,
+        display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -251,9 +286,33 @@ const styles = StyleSheet.create({
         borderRightColor: "#eb5a00",
     },
     gymDayText: {
-        fontSize: 50,
+        fontSize: 40,
         fontFamily: "Montserrat",
         color: "black",
+    },
+    gymDetails: {
+        width: "55%",
+        height: "100%",
+        paddingLeft: 10,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        alignItems: "flex-start",
+    },
+    gymDetailsText: {
+        fontSize: 14,
+        fontFamily: "Montserrat",
+        color: "black",
+    },
+    gymDetailsText1: {
+        fontSize: 14,
+        fontFamily: "Montserrat",
+        color: "grey",
+    },
+    gymDetailsText2: {
+        fontSize: 14,
+        fontFamily: "Montserrat",
+        color: "lightgrey",
     },
     weightHeader: {
         fontSize: 14,
