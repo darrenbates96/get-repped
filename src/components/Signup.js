@@ -8,6 +8,7 @@ const AnimatedInput = animated(TextInput);
 const Signup = () => {
     // State for TextInputs
     const [name, setName] = useState("");
+    const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -20,13 +21,22 @@ const Signup = () => {
 
     return (
         <View style={styles.container}>
-            <AnimatedInput
-                style={{ ...springInput, ...styles.input }}
-                onChangeText={(e) => setName(e)}
-                value={name}
-                placeholder='Name and Surname'
-                placeholderTextColor='#bdbdbd'
-            />
+            <View style={styles.inputContainer}>
+                <AnimatedInput
+                    style={{ ...springInput, ...styles.inputHalf }}
+                    onChangeText={(e) => setName(e)}
+                    value={name}
+                    placeholder='Name'
+                    placeholderTextColor='#bdbdbd'
+                />
+                <AnimatedInput
+                    style={{ ...springInput, ...styles.inputHalf }}
+                    onChangeText={(e) => setSurname(e)}
+                    value={surname}
+                    placeholder='Surname'
+                    placeholderTextColor='#bdbdbd'
+                />
+            </View>
             <AnimatedInput
                 style={{ ...springInput, ...styles.input }}
                 onChangeText={(e) => setEmail(e)}
@@ -55,6 +65,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
     },
+    inputContainer: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
     input: {
         borderRadius: 10,
         backgroundColor: "rgba(255,255,255,0.15)",
@@ -67,5 +83,15 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 5, height: 5 },
         shadowOpacity: 0.3,
         shadowRadius: 8,
+    },
+    inputHalf: {
+        width: "47%",
+        borderRadius: 10,
+        backgroundColor: "rgba(255,255,255,0.15)",
+        marginVertical: 10,
+        fontFamily: "Montserrat",
+        fontSize: 16,
+        paddingLeft: 15,
+        color: "#bdbdbd",
     },
 });

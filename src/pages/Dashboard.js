@@ -23,6 +23,20 @@ const Dashboard = () => {
         from: { opacity: 0 },
         to: { opacity: 1, flex: 1 },
     });
+    const springFadeIn = useSpring({
+        config: config.slow,
+        from: { opacity: 0 },
+        to: { opacity: 1 },
+    });
+    const springCals = useSpring({
+        config: config.slow,
+        from: { opacity: 0, marginLeft: "100%" },
+        to: { opacity: 1, marginLeft: "10%" },
+    });
+
+    // Fake "gym" data, inreality this will come from
+    // user data
+    const gymData = ["Pull Day", "Push Day", "Leg Day"];
 
     // Content rendering helper. To decide whether or
     // not to show the activity indicator based on the
@@ -31,56 +45,51 @@ const Dashboard = () => {
         if (dataLoaded) {
             return (
                 <Fragment>
-                    <View style={styles.dietMaintenanceContainer}>
-                        <Text style={styles.dietHeader}>Maintenance</Text>
+                    <AnimatedView
+                        style={{
+                            ...springFadeIn,
+                            ...styles.dietMaintenanceContainer,
+                        }}
+                    >
+                        <Text style={styles.dietHeader}>maintenance</Text>
                         <Text style={styles.dietMaintenance}>2300</Text>
-                        <Text style={styles.dietMaintenancePost}>kcals</Text>
-                    </View>
-                    <View style={styles.cardsContainer}>
+                        <Text style={styles.dietMaintenancePost}>kcal</Text>
+                    </AnimatedView>
+                    <AnimatedView
+                        style={{ ...springCals, ...styles.cardsContainer }}
+                    >
                         <View style={styles.calorieGoal}>
-                            <Text style={styles.calorieText}>2000</Text>
+                            <View style={styles.calNumberContainer}>
+                                <Text style={styles.calorieText}>2000</Text>
+                                <Text style={styles.kcalText}>kcal</Text>
+                            </View>
                             <Text style={styles.calorieSubText}>your goal</Text>
                         </View>
                         <View style={styles.calorieCurrent}>
-                            <Text style={styles.calorieText}>835</Text>
-                            <Text style={styles.calorieSubText}>
-                                you've consumed
-                            </Text>
+                            <View style={styles.calNumberContainer}>
+                                <Text style={styles.calorieText}>835</Text>
+                                <Text style={styles.kcalText}>kcal</Text>
+                            </View>
+                            <Text style={styles.calorieSubText}>consumed</Text>
                         </View>
-                    </View>
+                    </AnimatedView>
+                    <TouchableOpacity style={styles.caloriesFloatingButton}>
+                        <EvilIcons
+                            name='chevron-right'
+                            color={"black"}
+                            size={45}
+                            style={{ marginTop: 2 }}
+                        />
+                    </TouchableOpacity>
                     <View style={styles.contentRestContainer}>
-                        <AnimatedView
-                            style={{
-                                ...springSplit,
-                                ...styles.splitContainer,
-                            }}
-                        >
-                            <Text style={styles.splitHeader}>
-                                Training Preview:
-                            </Text>
-                            <View style={styles.underline} />
-                            <TouchableOpacity
-                                style={styles.splitsContentContainer}
-                            >
-                                <View style={styles.splitBlock}>
-                                    <Text style={styles.todaySplit}>
-                                        Chest{"\n"}+{"\n"}Legs
-                                    </Text>
-                                </View>
-                                <View style={styles.splitBlock}>
-                                    <Text style={styles.tomorrowSplit}>
-                                        Back{"\n"}+{"\n"}Biceps
-                                    </Text>
-                                </View>
-                                <View style={styles.splitBlock}>
-                                    <EvilIcons
-                                        name='arrow-right'
-                                        size={40}
-                                        color='grey'
-                                    />
-                                </View>
-                            </TouchableOpacity>
-                        </AnimatedView>
+                        <Text style={styles.gymHeader}>gym</Text>
+                        <View style={styles.gymContainer}>
+                            <View style={styles.gymDay}>
+                                <Text style={styles.gymDayText}>push day</Text>
+                            </View>
+                            <View style={styles.gymDetails}></View>
+                        </View>
+                        <Text style={styles.weightHeader}>weight</Text>
                         <WeightGraph />
                     </View>
                 </Fragment>
@@ -116,7 +125,7 @@ const styles = StyleSheet.create({
     },
     dietMaintenanceContainer: {
         width: "100%",
-        marginTop: 20,
+        paddingTop: 40,
         paddingLeft: "10%",
         display: "flex",
         flexDirection: "row",
@@ -124,8 +133,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     dietHeader: {
-        fontSize: 10,
-        fontFamily: "Montserrat",
+        fontSize: 14,
+        fontFamily: "MontserratMedium",
         color: "black",
         alignSelf: "flex-start",
         paddingTop: 20,
@@ -146,7 +155,6 @@ const styles = StyleSheet.create({
     cardsContainer: {
         width: "90%",
         height: 160,
-        marginLeft: "10%",
         marginTop: 10,
         display: "flex",
         flexDirection: "row",
@@ -172,16 +180,41 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: "#eb5a00",
     },
+    calNumberContainer: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "flex-end",
+    },
     calorieText: {
-        fontSize: 55,
+        fontSize: 50,
         fontFamily: "Montserrat",
-        textAlign: "center",
         color: "white",
+    },
+    kcalText: {
+        fontSize: 10,
+        fontFamily: "Montserrat",
+        color: "white",
+        alignSelf: "flex-end",
+        paddingBottom: 10,
     },
     calorieSubText: {
         fontSize: 10,
         fontFamily: "Montserrat",
         color: "white",
+        alignSelf: "flex-start",
+        marginLeft: "13%",
+    },
+    caloriesFloatingButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 50 * 0.5,
+        marginTop: -25,
+        marginRight: "10%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        alignSelf: "flex-end",
+        backgroundColor: "#ffd4ba",
     },
     contentRestContainer: {
         width: "100%",
@@ -192,56 +225,41 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         zIndex: 1,
     },
-    splitContainer: {
-        width: "100%",
-        marginVertical: 20,
-        padding: 20,
-        display: "flex",
-        flexDirection: "column",
-        borderRadius: 20,
-        backgroundColor: "white",
-        shadowColor: "black",
-        shadowOffset: { width: 5, height: 5 },
-        shadowOpacity: 0.3,
-        shadowRadius: 8,
-    },
-    splitHeader: {
+    gymHeader: {
         fontSize: 14,
-        fontFamily: "Montserrat",
-        color: "#4a4a4a",
-        marginBottom: 5,
+        fontFamily: "MontserratMedium",
+        color: "black",
+        marginLeft: "10%",
     },
-    underline: {
-        width: 65,
-        height: 1,
-        backgroundColor: "#eb5a00",
-        marginBottom: 10,
-    },
-    splitsContentContainer: {
-        width: "100%",
+    gymContainer: {
+        width: "80%",
+        marginLeft: "10%",
+        paddingVertical: 10,
         display: "flex",
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
-    },
-    splitBlock: {
-        width: "30%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
         alignItems: "center",
     },
-    todaySplit: {
-        fontSize: 24,
-        fontFamily: "MontserratMedium",
-        color: "#4a4a4a",
-        textAlign: "center",
+    gymDay: {
+        width: "45%",
+        height: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        borderRightWidth: 1,
+        borderRightColor: "#eb5a00",
     },
-    tomorrowSplit: {
+    gymDayText: {
+        fontSize: 50,
+        fontFamily: "Montserrat",
+        color: "black",
+    },
+    weightHeader: {
         fontSize: 14,
         fontFamily: "MontserratMedium",
-        color: "#4a4a4a",
-        textAlign: "center",
+        color: "black",
+        marginTop: 10,
+        marginLeft: "10%",
     },
 });

@@ -7,7 +7,7 @@ const AnimatedView = animated(View);
 const WeightGraph = () => {
     // Mimicking real data from firebase
     const dataRaw = ["66.3", "64.1", "62.3"];
-    const dataMonths = ["May", "June", "July"];
+    const dataMonths = ["may", "june", "july"];
 
     // Spring props
     const springBarOne = useSpring({
@@ -31,28 +31,25 @@ const WeightGraph = () => {
             <View style={styles.rightContent}>
                 <View style={styles.graphContainer}>
                     <View style={styles.barContainer}>
-                        <Text style={styles.barLabel}>{dataRaw[0]}kg</Text>
-
                         <AnimatedView
                             style={{ ...springBarOne, ...styles.graphBar }}
-                        />
+                        >
+                            <Text style={styles.barLabel}>{dataRaw[0]}kg</Text>
+                        </AnimatedView>
                     </View>
                     <View style={styles.barContainer}>
-                        <Text style={styles.barLabel}>{dataRaw[1]}kg</Text>
-
                         <AnimatedView
                             style={{ ...springBarTwo, ...styles.graphBar }}
-                        />
+                        >
+                            <Text style={styles.barLabel}>{dataRaw[1]}kg</Text>
+                        </AnimatedView>
                     </View>
                     <View style={styles.barContainer}>
-                        <Text style={styles.barLabel}>{dataRaw[2]}kg</Text>
-
                         <AnimatedView
-                            style={{
-                                ...springBarThree,
-                                ...styles.graphBar,
-                            }}
-                        />
+                            style={{ ...springBarThree, ...styles.graphBar }}
+                        >
+                            <Text style={styles.barLabel}>{dataRaw[2]}kg</Text>
+                        </AnimatedView>
                     </View>
                 </View>
                 <View style={styles.xLabel}>
@@ -70,8 +67,8 @@ export default WeightGraph;
 const styles = StyleSheet.create({
     chartContent: {
         width: "80%",
-        height: 250,
-        marginTop: -20,
+        height: 200,
+        marginTop: -10,
         marginLeft: "10%",
         borderRadius: 20,
         display: "flex",
@@ -113,13 +110,16 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     barLabel: {
-        fontSize: 10,
+        fontSize: 12,
         fontFamily: "Montserrat",
-        color: "black",
-        marginBottom: 5,
+        color: "white",
     },
     graphBar: {
         width: "100%",
+        paddingTop: 10,
+        display: "flex",
+        justifyContent: "flex-start",
+        alignItems: "center",
         backgroundColor: "#eb5a00",
         borderTopLeftRadius: 5,
         borderTopRightRadius: 5,
