@@ -81,7 +81,7 @@ const Landing = () => {
                 return (
                     <View style={styles.view_container}>
                         <Text style={styles.header}>Calculate.</Text>
-                        <ActivityIndicator size='large' color='#2d4059' />
+                        <ActivityIndicator size='large' color='white' />
                     </View>
                 );
             } else {
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor: "#eb5a00",
         marginTop: 40,
-        marginBottom: 10,
+        marginBottom: 20,
         alignSelf: "flex-start",
     },
     header_underline_signup: {
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 2,
         borderBottomColor: "#eb5a00",
         marginTop: 30,
-        marginBottom: 10,
+        marginBottom: 20,
         alignSelf: "flex-end",
     },
     icon_container: {

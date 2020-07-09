@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
         width: "100%",
         borderRadius: 10,
         backgroundColor: "#eb5a00",
-        marginTop: 20,
     },
     touchable: {
         height: "100%",
