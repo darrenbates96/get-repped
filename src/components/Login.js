@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { StyleSheet, View, TextInput, ActivityIndicator } from "react-native";
+import React, { useState, useContext } from "react";
+import { StyleSheet, View, TextInput, AsyncStorage } from "react-native";
 import { useSpring, animated, config } from "react-spring/native";
 import { withNavigation } from "react-navigation";
 import firebase from "../firebase";
+import authContext from "../context/authentication/authContext";
 import PrimaryButton from "./PrimaryButton";
 
 const AnimatedInput = animated(TextInput);
@@ -13,9 +14,10 @@ const Login = ({ navigation }) => {
     const [password, setPassword] = useState("c@lcUL8_6969");
     const [userError, setUserError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    // State for UI/SignIn
-    const [signingIn, setSigningIn] = useState(false);
-    const [signInError, setSignInError] = useState("");
+
+    // Bring in context to be used to trigger UI change in AccountManagement
+    const AuthContext = useContext(authContext);
+    const { attemptLogin, authSuccess } = AuthContext;
 
     // Return inputs to normal styling depending in states when
     // re-rendered
@@ -40,7 +42,9 @@ const Login = ({ navigation }) => {
     // Submit Helper
     const submitHelper = async () => {
         if (username && password) {
-            setSigningIn(true);
+            // This should be a function sending state upwards! (POSSIBLY SOME CONTEXT
+            // BECAUSE WE ARE NESTED AF RN)
+            attemptLogin();
             // Instantiate usable firebase variables
             const auth = firebase.auth();
             // Authenticate user
@@ -53,10 +57,23 @@ const Login = ({ navigation }) => {
             auth.onAuthStateChanged((user) => {
                 if (user) {
                     // This means user has successfully been authenticated
-                    // Push UID to context over here
-                    navigation.navigate("Main");
+                    // Push uid to context
+                    authSuccess(user.uid);
+                    // Set uid in AsyncStorage to allow seamless
+                    // app useage once signed in successfully on
+                    // a device
+                    AsyncStorage.setItem("calculate_username", username).then(
+                        () => {
+                            AsyncStorage.setItem(
+                                "calculate_password",
+                                password
+                            ).then(() => {
+                                // Navigate uuser to dashboard
+                                navigation.navigate("Main");
+                            });
+                        }
+                    );
                 } else {
-                    setSigningIn(false);
                     setSignInError("Oops, something went wrong...");
                 }
             });
@@ -98,25 +115,13 @@ const Login = ({ navigation }) => {
         }
     };
 
-    const renderHelper = () => {
-        if (signingIn) {
-            return (
-                <View style={styles.container}>
-                    <ActivityIndicator size='large' color='white' />
-                </View>
-            );
-        } else {
-            return (
-                <View style={styles.container}>
-                    {inputRender("user")}
-                    {inputRender("pass")}
-                    <PrimaryButton onTap={submitHelper} />
-                </View>
-            );
-        }
-    };
-
-    return renderHelper();
+    return (
+        <View style={styles.container}>
+            {inputRender("user")}
+            {inputRender("pass")}
+            <PrimaryButton onTap={submitHelper} />
+        </View>
+    );
 };
 
 export default withNavigation(Login);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
     StyleSheet,
     Text,
@@ -7,20 +7,50 @@ import {
     ActivityIndicator,
     TouchableOpacity,
     ImageBackground,
+    AsyncStorage,
 } from "react-native";
 import * as Font from "expo-font";
+import firebase from "../firebase";
+import authContext from "../context/authentication/authContext";
 import FormToggle from "../components/FormToggle";
 import { EvilIcons } from "@expo/vector-icons";
 
-const Landing = () => {
+const Landing = ({ navigation }) => {
     // State for loading fonts and showing the
     // Log In form
     const [fontLoading, setFontLoading] = useState(true);
-    const [showFormToggle, setShowFormToggle] = useState(null);
     const [toggle, setToggle] = useState("login");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    // Set up context to be used whilst user attempts login
+    const AuthContext = useContext(authContext);
+    const { attemptingLogin, authSuccess } = AuthContext;
+
+    // Header underline styling helper
+    const headerStyle =
+        toggle === "login"
+            ? styles.header_underline
+            : styles.header_underline_signup;
 
     // ComponentDidMount
     useEffect(() => {
+        // Function to check if user has previously logged in
+        // on device
+        const getUsername = async () => {
+            const user = await AsyncStorage.getItem("calculate_username");
+            if (user) {
+                setUsername(user);
+            }
+        };
+        getUsername();
+        const getPassword = async () => {
+            const pass = await AsyncStorage.getItem("calculate_password");
+            if (pass) {
+                setPassword(pass);
+            }
+        };
+        getPassword();
         // Function to load the custom Font
         const loadFont = async () => {
             await Font.loadAsync({
@@ -32,18 +62,27 @@ const Landing = () => {
         loadFont();
     }, []);
 
-    // A timeout before showing the form
-    const formTimeOut = () => {
-        setTimeout(() => {
-            setShowFormToggle(true);
-        }, 3000);
+    // This function will log the previous user in to the
+    // app automatically
+    const automaticLogin = async () => {
+        // Instantiate usable firebase variables
+        const auth = firebase.auth();
+        // Authenticate user
+        try {
+            await auth.signInWithEmailAndPassword(username, password);
+        } catch (error) {
+            console.log(error);
+        }
+        // Check if the user was signed in successfully
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                // This means user has successfully been authenticated
+                // Push uid to context
+                authSuccess(user.uid);
+                navigation.navigate("Main");
+            }
+        });
     };
-
-    // Header underline styling helper
-    const headerStyle =
-        toggle === "login"
-            ? styles.header_underline
-            : styles.header_underline_signup;
 
     // Helper to decide which toggle icon and text to render
     const renderToggleIcon = () => {
@@ -76,14 +115,9 @@ const Landing = () => {
         if (fontLoading) {
             return <View style={styles.view_container} />;
         } else {
-            formTimeOut();
-            if (!showFormToggle) {
-                return (
-                    <View style={styles.view_container}>
-                        <Text style={styles.header}>Calculate.</Text>
-                        <ActivityIndicator size='large' color='white' />
-                    </View>
-                );
+            if (password) {
+                automaticLogin();
+                return <ActivityIndicator size='large' color='white' />;
             } else {
                 return (
                     <View style={styles.view_container}>
@@ -92,9 +126,7 @@ const Landing = () => {
                             <View style={headerStyle} />
                         </View>
                         <View style={styles.bottom_container}>
-                            {showFormToggle ? (
-                                <FormToggle show={toggle} />
-                            ) : null}
+                            <FormToggle show={toggle} />
                             {renderToggleIcon()}
                         </View>
                     </View>
@@ -109,7 +141,11 @@ const Landing = () => {
             source={require("../assets/AccountsBackground.jpg")}
         >
             <SafeAreaView forceInset={true} style={styles.container}>
-                {renderHelper()}
+                {attemptingLogin ? (
+                    <ActivityIndicator size='large' color='white' />
+                ) : (
+                    renderHelper()
+                )}
             </SafeAreaView>
         </ImageBackground>
     );

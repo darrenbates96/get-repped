@@ -1,5 +1,6 @@
 import React from "react";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
+import AuthState from "./src/context/authentication/AuthState";
 import AccountManagement from "./src/pages/AccountManagement";
 import BottomNavigation from "./src/components/BottomNavigation";
 
@@ -16,5 +17,9 @@ const navigator = createSwitchNavigator(
 const App = createAppContainer(navigator);
 
 export default () => {
-    return <App />;
+    return (
+        <AuthState>
+            <App />
+        </AuthState>
+    );
 };
