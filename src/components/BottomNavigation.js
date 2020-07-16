@@ -13,14 +13,23 @@ import Dashboard from "../pages/Dashboard";
 import Gym from "../pages/Gym";
 import Diet from "../pages/Diet";
 
-const BottomNavigation = () => {
+const BottomNavigation = ({ navigation }) => {
     // State for screen toggle
     const [showing, setShowing] = useState("Dash");
+
+    // Style for gymming page, so that background can be orange
+    const mainContainerStyle =
+        showing === "Gym" ? styles.gymMainContainer : styles.mainContainer;
+    // Style to pull navigation container down if 'showing'
+    // is set to gym. This is all in pursuit of an orange
+    // background
+    const navContainerStyle =
+        showing === "Gym" ? styles.gymNavContainer : styles.navContainer;
 
     // Actual bottom navigation drawer
     const renderDrawer = () => {
         return (
-            <View style={styles.navContainer}>
+            <View style={navContainerStyle}>
                 <TouchableOpacity
                     style={
                         showing === "Dash"
@@ -106,7 +115,7 @@ const BottomNavigation = () => {
     // on the state of "showing"
     const screenRender = () => {
         if (showing === "Dash") {
-            return <Dashboard />;
+            return <Dashboard changeScreen={(e) => setShowing(e)} />;
         } else if (showing === "Gym") {
             return <Gym />;
         } else if (showing === "Diet") {
@@ -117,7 +126,7 @@ const BottomNavigation = () => {
     };
 
     return (
-        <SafeAreaView forceInset={true} style={styles.mainContainer}>
+        <SafeAreaView forceInset={true} style={mainContainerStyle}>
             {screenRender()}
             {renderDrawer()}
         </SafeAreaView>
@@ -132,6 +141,13 @@ const styles = StyleSheet.create({
         height: "100%",
         backgroundColor: "white",
     },
+    gymMainContainer: {
+        width: "100%",
+        height: "100%",
+        backgroundColor: "#eb5a00",
+        borderBottomWidth: 35,
+        borderBottomColor: "white",
+    },
     navContainer: {
         width: "100%",
         paddingTop: 15,
@@ -142,6 +158,19 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: "white",
+    },
+    gymNavContainer: {
+        width: "100%",
+        paddingTop: 15,
+        paddingBottom: 25,
+        paddingHorizontal: 35,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "white",
+        // Pull container down to cover orange
+        marginBottom: -35,
     },
     menuItemContainer: {
         display: "flex",

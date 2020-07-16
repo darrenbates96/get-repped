@@ -65,7 +65,7 @@ const Landing = ({ navigation }) => {
     // This function will log the previous user in to the
     // app automatically
     const automaticLogin = async () => {
-        // Instantiate usable firebase variables
+        // Instantiate usable firebase variable
         const auth = firebase.auth();
         // Authenticate user
         try {

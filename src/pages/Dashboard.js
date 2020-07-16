@@ -13,7 +13,7 @@ import { EvilIcons } from "@expo/vector-icons";
 
 const AnimatedView = animated(View);
 
-const Dashboard = () => {
+const Dashboard = ({ changeScreen }) => {
     // This will be set to false until data from firebase
     // has been retrieved
     const [dataLoaded, setDataLoaded] = useState(true);
@@ -34,10 +34,6 @@ const Dashboard = () => {
         from: { opacity: 0, marginLeft: "100%" },
         to: { opacity: 1, marginLeft: "10%" },
     });
-
-    // Fake "gym" data, inreality this will come from
-    // user data
-    const gymData = ["Pull Day", "Push Day", "Leg Day"];
 
     // Content rendering helper. To decide whether or
     // not to show the activity indicator based on the
@@ -86,7 +82,10 @@ const Dashboard = () => {
                     </TouchableOpacity>
                     <View style={styles.contentRestContainer}>
                         <Text style={styles.gymHeader}>gym</Text>
-                        <TouchableOpacity style={styles.gymTouch}>
+                        <TouchableOpacity
+                            style={styles.gymTouch}
+                            onPress={() => changeScreen("Gym")}
+                        >
                             <AnimatedView
                                 style={{
                                     ...springGrow,
